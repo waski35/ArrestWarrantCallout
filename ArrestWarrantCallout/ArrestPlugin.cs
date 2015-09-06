@@ -10,7 +10,7 @@ namespace ArrestWarrantCallout
 {
     public class ArrestWarrantClass
     {
-        static string plug_ver = "ArrestCallouts 0.1.0.2";
+        static string plug_ver = "ArrestCallouts 0.1.0.3";
 
     /// <summary>
     /// Do not rename! Attributes or inheritance based plugins will follow when the API is more in depth.
