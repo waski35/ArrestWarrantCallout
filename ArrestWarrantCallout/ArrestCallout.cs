@@ -62,9 +62,8 @@ namespace ArrestWarrantCallout
             }
 
 
-
-            airport_pos = new Vector3(0, 0, 0); // set airport pos
-            seaport_pos = new Vector3(0, 0, 0); // set seaport pos
+            airport_pos = new Vector3(Convert.ToSingle(-1029.346), Convert.ToSingle(-2499.977), Convert.ToSingle(19.704)); // set airport pos
+            seaport_pos = new Vector3(Convert.ToSingle(1181.485), Convert.ToSingle(-3099.899), Convert.ToSingle(5.43373)); // set seaport pos
 
             //Create our ped in the world
             myPed = new Ped("a_m_y_mexthug_01", SpawnPoint, 0f);
@@ -74,7 +73,7 @@ namespace ArrestWarrantCallout
             //Create the vehicle for our ped
             if (rand_num > 10 && rand_num < 50)
             {
-                myVehicle = new Vehicle("DUKES2", SpawnPoint);
+                myVehicle = new Vehicle(Model.RandomVehicleModel, SpawnPoint);
             }
             //Now we have spawned them, check they actually exist and if not return false (preventing the callout from being accepted and aborting it)
             if (!myPed.Exists()) return false;
