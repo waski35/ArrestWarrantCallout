@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using LSPD_First_Response.Mod.API;
 using Rage;
 
@@ -10,7 +11,7 @@ namespace ArrestWarrantCallout
 {
     public class ArrestWarrantClass
     {
-        static string plug_ver = "ArrestCallouts 0.1.0.3";
+        
 
     /// <summary>
     /// Do not rename! Attributes or inheritance based plugins will follow when the API is more in depth.
@@ -40,7 +41,7 @@ namespace ArrestWarrantCallout
         {
             //Event handler for detecting if the player goes on duty
             Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
-            Game.LogTrivial(plug_ver + " Plugin loaded!");
+            Game.LogTrivial("Arrest Warrant Callout " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + "loaded!");
         }
 
         /// <summary>

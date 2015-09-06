@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -28,6 +29,7 @@ namespace ArrestWarrantCallout
         private bool fight_started = false;
         private int r_felony = 0;
         private string felony_s = "";
+        private int wep_chance = 0;
 
         /// <summary>
         /// OnBeforeCalloutDisplayed is where we create a blip for the user to see where the pursuit is happening, we initiliaize any variables above and set
@@ -43,7 +45,10 @@ namespace ArrestWarrantCallout
             SpawnPoint = CreateWantedPedLoc(rand_num);
 
             Random purs = new Random();
-            r_chance = purs.Next(1, 100); // fight / surrender chance
+            r_chance = purs.Next(1, 100); // fight / surrender / pursuit chance
+
+            Random wep = new Random();
+            wep_chance = wep.Next(1, 100);
 
             Random fel = new Random();
             r_felony = fel.Next(1, 5);
@@ -71,6 +76,11 @@ namespace ArrestWarrantCallout
             myPed = new Ped("a_m_y_mexthug_01", SpawnPoint, 0f);
             myPed.KeepTasks = true;
             myPed.MakePersistent();
+            if (wep_chance > 70)
+            {
+                WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                myPed.GiveNewWeapon(w_ass,25,false);
+            }
 
             //Create the vehicle for our ped
             if (rand_num > 10 && rand_num < 50)
@@ -105,7 +115,7 @@ namespace ArrestWarrantCallout
             this.CalloutPosition = SpawnPoint;
 
             //Play the police scanner audio for this callout (available as of the 0.2a API)
-            Functions.PlayScannerAudioUsingPosition("CITIZENS_REPORT CRIME_RESIST_ARREST IN_OR_ON_POSITION", SpawnPoint);
+            Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_RESIST_ARREST IN_OR_ON_POSITION", SpawnPoint);
 
             return base.OnBeforeCalloutDisplayed();
         }
@@ -119,6 +129,8 @@ namespace ArrestWarrantCallout
         {
             //We accepted the callout, so lets initilize our blip from before and attach it to our ped so we know where he is.
             myBlip = myPed.AttachBlip();
+            myBlip.Color = System.Drawing.Color.Yellow;
+            myBlip.EnableRoute(System.Drawing.Color.Yellow);
             //this.pursuit = Functions.CreatePursuit();
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
             Game.DisplayNotification("Control to 1-ADAM-12 : We have wanted criminal arrest warrant, criminal is wanted for " + felony_s + ".");
@@ -126,11 +138,13 @@ namespace ArrestWarrantCallout
             if (rand_num > 0 && rand_num < 10) // waiting at home
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is unaware about Your arrest warrant.");
+                Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
                 myPed.Tasks.StandStill(60000);
             }
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to airport.");
+                Functions.PlayScannerAudio("WE_HAVE SUSPECT_HEADING AREA_LOS_SANTOS_INTERNATIONAL UNITS_RESPOND_CODE_03");
                 if (rand_num >= 10 && rand_num < 30)
                 {
                     myPed.Tasks.DriveToPosition(airport_pos, 35, DriveToPositionFlags.RespectVehicles);
@@ -145,6 +159,7 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 40  && rand_num < 80) // fleeing to seaport
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to seaport.");
+                Functions.PlayScannerAudio("WE_HAVE SUSPECT_HEADING AREA_PORT_OF_SOUTH_LOS_SANTOS UNITS_RESPOND_CODE_03");
                 if (rand_num >= 40 && rand_num < 70)
                 {
                     myPed.Tasks.DriveToPosition(seaport_pos, 35, DriveToPositionFlags.RespectVehicles);
@@ -159,7 +174,8 @@ namespace ArrestWarrantCallout
             }
             else // hiding in mouintains
             {
-                Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is hiding in marked county.");
+                Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is hiding in marked area.");
+                Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
                 myPed.Tasks.Wander();
           
             }
@@ -186,6 +202,10 @@ namespace ArrestWarrantCallout
             {
                 if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
                 {
+                    myBlip.Color = System.Drawing.Color.Red;
+                    myBlip.RouteColor = System.Drawing.Color.Red;
+                    
+                    
                     if (r_chance > 10 && r_chance < 65)
                     {
                         if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
@@ -195,7 +215,7 @@ namespace ArrestWarrantCallout
                         }
                         
                     }
-                    else if (r_chance >= 65)
+                    else if (r_chance >= 65 && r_chance < 85)
                     {
                         this.pursuit = Functions.CreatePursuit();
                         Functions.AddPedToPursuit(this.pursuit, this.myPed);
@@ -249,7 +269,7 @@ namespace ArrestWarrantCallout
             //A simple check, if our pursuit has ended we end the callout
             if (Functions.IsPedArrested(myPed))
             {
-                Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody. 10-4.");
+                Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
                 Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
                 
             }
@@ -262,8 +282,7 @@ namespace ArrestWarrantCallout
             }
             else if(timeout_is_on)
             {
-                Game.DisplayNotification("Control : We have lost track of suspect.");
-                Game.DisplayNotification("1-ADAM-12 : Acknowledged. 10-4 on my location.");
+                Game.DisplayNotification("1-ADAM-12 : We have lost track of suspect.");
                 Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
                 
             }
