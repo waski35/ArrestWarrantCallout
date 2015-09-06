@@ -10,6 +10,8 @@ using Rage;
 
 namespace ArrestWarrantCallout
 {
+    [CalloutInfo("ArrestCallout", CalloutProbability.Medium)]
+
     class ArrestCallout : Callout
     {
         //Here we declare our variables, things we need or our callout
