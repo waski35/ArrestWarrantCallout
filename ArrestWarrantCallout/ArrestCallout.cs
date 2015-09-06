@@ -24,6 +24,8 @@ namespace ArrestWarrantCallout
         private bool timeout_is_on = false;
         private int r_chance = 0;
         private bool fight_started = false;
+        private int r_felony = 0;
+        private string felony_s = "";
 
         /// <summary>
         /// OnBeforeCalloutDisplayed is where we create a blip for the user to see where the pursuit is happening, we initiliaize any variables above and set
@@ -35,11 +37,31 @@ namespace ArrestWarrantCallout
             //Set our spawn point to be on a street around 300f (distance) away from the player.
             //SpawnPoint = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(500f));
             Random random_number = new Random();
-            int rand_num = random_number.Next(1, 100);
+            rand_num = random_number.Next(1, 100);
             SpawnPoint = CreateWantedPedLoc(rand_num);
 
             Random purs = new Random();
-            int r_chance = purs.Next(1, 100); // fight / surrender chance
+            r_chance = purs.Next(1, 100); // fight / surrender chance
+
+            Random fel = new Random();
+            r_felony = fel.Next(1, 5);
+            switch(r_felony)
+            {
+                case 1: felony_s = "robbery";
+                    break;
+                case 2: felony_s = "murder";
+                    break;
+                case 3: felony_s = "ripe";
+                    break;
+                case 4: felony_s = "assault";
+                    break;
+                case 5: felony_s = "drug deal";
+                    break;
+                default: felony_s = "number of crimes";
+                    break;
+            }
+
+
 
             airport_pos = new Vector3(0, 0, 0); // set airport pos
             seaport_pos = new Vector3(0, 0, 0); // set seaport pos
@@ -88,8 +110,8 @@ namespace ArrestWarrantCallout
             myBlip = myPed.AttachBlip();
             //this.pursuit = Functions.CreatePursuit();
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
-            Game.DisplayNotification("Control to 1-ADAM-12 : We have wanted criminal arrest warrant, proceed to marked location and arrest person.");
-            Game.DisplaySubtitle("Go to marked area and arrest wanted criminal.",5000);
+            Game.DisplayNotification("Control to 1-ADAM-12 : We have wanted criminal arrest warrant, criminal is wanted for " + felony_s + " , proceed to marked location and arrest person.");
+            Game.DisplaySubtitle("Go to marked area and arrest wanted criminal.",9000);
             if (rand_num > 0 && rand_num < 10) // waiting at home
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is unaware about Your arrest warrant.");
