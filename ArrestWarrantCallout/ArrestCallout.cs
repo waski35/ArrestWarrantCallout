@@ -77,6 +77,11 @@ namespace ArrestWarrantCallout
             myPed = new Ped("a_m_y_mexthug_01", SpawnPoint, 0f);
             myPed.KeepTasks = true;
             myPed.MakePersistent();
+            DateTime birthday = new DateTime(1971,01,23);
+            Persona crim_presona_old = Functions.GetPersonaForPed(myPed);
+            
+            Persona crim_persona_new = new Persona(myPed, crim_presona_old.Gender, crim_presona_old.BirthDay, 5, crim_presona_old.Forename, crim_presona_old.Surname, crim_presona_old.LicenseState, crim_presona_old.TimesStopped, true, false, false);
+            Functions.SetPersonaForPed(myPed, crim_persona_new);
             if (wep_chance > 70)
             {
                 WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
