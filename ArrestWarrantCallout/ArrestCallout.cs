@@ -21,7 +21,9 @@ namespace ArrestWarrantCallout
         private int rand_num = 0;
         private Vector3 airport_pos;
         private Vector3 seaport_pos;
-        private bool timeout_is_on = false
+        private bool timeout_is_on = false;
+        private int r_chance = 0;
+        private bool fight_started = false;
 
         /// <summary>
         /// OnBeforeCalloutDisplayed is where we create a blip for the user to see where the pursuit is happening, we initiliaize any variables above and set
@@ -35,13 +37,18 @@ namespace ArrestWarrantCallout
             Random random_number = new Random();
             int rand_num = random_number.Next(0, 100);
             SpawnPoint = CreateWantedPedLoc(rand_num);
+
+            Random purs = new Random();
+            int r_chance = purs.Next(1, 100);
+
             airport_pos = new Vector3(0, 0, 0);
             seaport_pos = new Vector3(0, 0, 0);
             //Create our ped in the world
             myPed = new Ped("a_m_y_mexthug_01", SpawnPoint, 0f);
+            myPed.KeepTasks = true;
 
             //Create the vehicle for our ped
-            if (rand_num > 10 && rand_num < 30)
+            if (rand_num > 10 && rand_num < 50)
             {
                 myVehicle = new Vehicle("DUKES2", SpawnPoint);
             }
@@ -50,7 +57,7 @@ namespace ArrestWarrantCallout
             if (!myVehicle.Exists()) return false;
 
             //If we made it this far both exist so let's warp the ped into the driver seat
-            if (rand_num > 10 && rand_num < 30)
+            if (rand_num > 10 && rand_num < 50)
             {
                 myPed.WarpIntoVehicle(myVehicle, -1);
             }
@@ -140,9 +147,48 @@ namespace ArrestWarrantCallout
         public override void Process()
         {
             base.Process();
-            
-            
+            if (!fight_started)
+            {
+                if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
+                {
+                    if (r_chance > 10 && r_chance < 65)
+                    {
+                        myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
+                    }
 
+                }
+            }
+            if (fight_started)
+            {
+                if (myPed.Health < 45)
+                {
+                    if (r_chance > 45)
+                    {
+                        myPed.Tasks.Clear();
+                        if (myPed.IsInAnyVehicle(true))
+                        {
+                            myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+
+                        }
+                        myPed.Tasks.PutHandsUp(4000, Game.LocalPlayer.Character);
+                    }
+                }
+            }
+
+            if (rand_num >= 10 && rand_num < 30)
+            {
+                if (myPed.Position.DistanceTo(airport_pos) < 50)
+                {
+                    myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                }
+            }
+            if (rand_num >= 40 && rand_num < 70)
+            {
+                if (myPed.Position.DistanceTo(seaport_pos) < 50)
+                {
+                    myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                }
+            }
 
             //A simple check, if our pursuit has ended we end the callout
             if (myPed.IsDead || Functions.IsPedArrested(myPed))
