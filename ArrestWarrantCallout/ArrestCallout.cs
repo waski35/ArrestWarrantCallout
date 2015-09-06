@@ -18,6 +18,10 @@ namespace ArrestWarrantCallout
         private Vector3 SpawnPoint; // a Vector3
         private Blip myBlip; // a rage blip
         private LHandle pursuit; // an API pursuit handle
+        private int rand_num = 0;
+        private Vector3 airport_pos;
+        private Vector3 seaport_pos;
+        private bool timeout_is_on = false
 
         /// <summary>
         /// OnBeforeCalloutDisplayed is where we create a blip for the user to see where the pursuit is happening, we initiliaize any variables above and set
@@ -28,21 +32,28 @@ namespace ArrestWarrantCallout
         {
             //Set our spawn point to be on a street around 300f (distance) away from the player.
             //SpawnPoint = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(500f));
-            SpawnPoint = CreateWantedPedLoc();
-
+            Random random_number = new Random();
+            int rand_num = random_number.Next(0, 100);
+            SpawnPoint = CreateWantedPedLoc(rand_num);
+            airport_pos = new Vector3(0, 0, 0);
+            seaport_pos = new Vector3(0, 0, 0);
             //Create our ped in the world
             myPed = new Ped("a_m_y_mexthug_01", SpawnPoint, 0f);
 
             //Create the vehicle for our ped
-            //myVehicle = new Vehicle("DUKES2", SpawnPoint);
-
+            if (rand_num > 10 && rand_num < 30)
+            {
+                myVehicle = new Vehicle("DUKES2", SpawnPoint);
+            }
             //Now we have spawned them, check they actually exist and if not return false (preventing the callout from being accepted and aborting it)
             if (!myPed.Exists()) return false;
             if (!myVehicle.Exists()) return false;
 
             //If we made it this far both exist so let's warp the ped into the driver seat
-            myPed.WarpIntoVehicle(myVehicle, -1);
-
+            if (rand_num > 10 && rand_num < 30)
+            {
+                myPed.WarpIntoVehicle(myVehicle, -1);
+            }
             // Show the user where the pursuit is about to happen and block very close peds.
             this.ShowCalloutAreaBlipBeforeAccepting(SpawnPoint, 15f);
             this.AddMinimumDistanceCheck(5f, myPed.Position);
@@ -70,6 +81,46 @@ namespace ArrestWarrantCallout
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
             Game.DisplayNotification("Control to 1-ADAM-12 : We have wanted criminal arrest warrant, proceed to marked location and arrest person.");
             Game.DisplaySubtitle("Go to marked area and arrest wanted criminal.",5000);
+            if (rand_num > 0 && rand_num < 10) // waiting at home
+            {
+                Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is unaware about Your arrest warrant.");
+                myPed.Tasks.StandStill(60000);
+            }
+            else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
+            {
+                Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to airport.");
+                if (rand_num >= 10 && rand_num < 30)
+                {
+                    myPed.Tasks.DriveToPosition(airport_pos, 35, DriveToPositionFlags.RespectVehicles);
+                    myPed.Tasks.StandStill(60000);
+                }
+                else
+                {
+                    myPed.Tasks.FollowNavigationMeshToPosition(airport_pos, 0, 10, 12000);
+                    myPed.Tasks.StandStill(60000);
+                }
+            }
+            else if (rand_num >= 40  && rand_num < 80) // fleeing to seaport
+            {
+                Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to seaport.");
+                if (rand_num >= 40 && rand_num < 70)
+                {
+                    myPed.Tasks.DriveToPosition(seaport_pos, 35, DriveToPositionFlags.RespectVehicles);
+                    myPed.Tasks.StandStill(60000);
+                }
+                else
+                {
+                    myPed.Tasks.FollowNavigationMeshToPosition(seaport_pos, 0, 10, 12000);
+                    myPed.Tasks.StandStill(60000);
+                }
+          
+            }
+            else // hiding in mouintains
+            {
+                Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is hiding in mountains.");
+                myPed.Tasks.Wander();
+          
+            }
            
             return base.OnCalloutAccepted();
         }
@@ -90,13 +141,29 @@ namespace ArrestWarrantCallout
         {
             base.Process();
             
+            
+
+
             //A simple check, if our pursuit has ended we end the callout
             if (myPed.IsDead || Functions.IsPedArrested(myPed))
             {
-                Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is no loger wanted. 10-4.");
+                Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody. 10-4.");
                 Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
                 this.End();
             }
+            else if ((myPed.Position == airport_pos) || (myPed.Position == seaport_pos))
+            {
+                Game.DisplayNotification("Control : Suspect has escaped.");
+                Game.DisplayNotification("1-ADAM-12 : Acknowledged. 10-4 on my location.");
+                Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+            }
+            else if(timeout_is_on)
+            {
+                Game.DisplayNotification("Control : We have lost track of suspect.");
+                Game.DisplayNotification("1-ADAM-12 : Acknowledged. 10-4 on my location.");
+                Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+            }
+
         }
 
         /// <summary>
@@ -111,9 +178,17 @@ namespace ArrestWarrantCallout
             if (myVehicle.Exists()) myVehicle.Delete();
             
         }
-        private Vector3 CreateWantedPedLoc()
+        private Vector3 CreateWantedPedLoc(int rand)
         {
             Vector3 s_point = new Vector3(0, 0, 0);
+            if (rand > 0 && rand < 40) //city
+            {
+
+            }
+            else // county
+            {
+
+            }
 
 
             return s_point;
