@@ -35,17 +35,19 @@ namespace ArrestWarrantCallout
             //Set our spawn point to be on a street around 300f (distance) away from the player.
             //SpawnPoint = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(500f));
             Random random_number = new Random();
-            int rand_num = random_number.Next(0, 100);
+            int rand_num = random_number.Next(1, 100);
             SpawnPoint = CreateWantedPedLoc(rand_num);
 
             Random purs = new Random();
-            int r_chance = purs.Next(1, 100);
+            int r_chance = purs.Next(1, 100); // fight / surrender chance
 
-            airport_pos = new Vector3(0, 0, 0);
-            seaport_pos = new Vector3(0, 0, 0);
+            airport_pos = new Vector3(0, 0, 0); // set airport pos
+            seaport_pos = new Vector3(0, 0, 0); // set seaport pos
+
             //Create our ped in the world
             myPed = new Ped("a_m_y_mexthug_01", SpawnPoint, 0f);
             myPed.KeepTasks = true;
+            myPed.MakePersistent();
 
             //Create the vehicle for our ped
             if (rand_num > 10 && rand_num < 50)
@@ -170,7 +172,8 @@ namespace ArrestWarrantCallout
                             myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
 
                         }
-                        myPed.Tasks.PutHandsUp(4000, Game.LocalPlayer.Character);
+
+                        myPed.Tasks.PutHandsUp(8000, Game.LocalPlayer.Character);
                     }
                 }
             }
@@ -179,14 +182,20 @@ namespace ArrestWarrantCallout
             {
                 if (myPed.Position.DistanceTo(airport_pos) < 50)
                 {
-                    myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                    if (myPed.IsInAnyVehicle(true))
+                    {
+                        myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                    }
                 }
             }
             if (rand_num >= 40 && rand_num < 70)
             {
                 if (myPed.Position.DistanceTo(seaport_pos) < 50)
                 {
-                    myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                    if (myPed.IsInAnyVehicle(true))
+                    {
+                        myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                    }
                 }
             }
 
@@ -229,11 +238,11 @@ namespace ArrestWarrantCallout
             Vector3 s_point = new Vector3(0, 0, 0);
             if (rand > 0 && rand < 40) //city
             {
-
+                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(2000f));
             }
             else // county
             {
-
+                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(2000f));
             }
 
 
