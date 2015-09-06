@@ -148,7 +148,7 @@ namespace ArrestWarrantCallout
             }
             else // hiding in mouintains
             {
-                Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is hiding in mountains.");
+                Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is hiding in marked county.");
                 myPed.Tasks.Wander();
           
             }
