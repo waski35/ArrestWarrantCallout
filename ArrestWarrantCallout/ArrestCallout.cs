@@ -30,6 +30,7 @@ namespace ArrestWarrantCallout
         private int r_felony = 0;
         private string felony_s = "";
         private int wep_chance = 0;
+        private bool got_arrested_notf = false;
 
         /// <summary>
         /// OnBeforeCalloutDisplayed is where we create a blip for the user to see where the pursuit is happening, we initiliaize any variables above and set
@@ -81,6 +82,12 @@ namespace ArrestWarrantCallout
                 WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
                 myPed.GiveNewWeapon(w_ass,25,false);
             }
+            else if (wep_chance >= 95)
+            {
+                WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                myPed.GiveNewWeapon(w_ass, 100, false);
+                myPed.Armor = 50;
+            }
 
             //Create the vehicle for our ped
             if (rand_num > 10 && rand_num < 50)
@@ -111,7 +118,7 @@ namespace ArrestWarrantCallout
             
 
             // Set up our callout message and location
-            this.CalloutMessage = "Arrest Warrant in Progress";
+            this.CalloutMessage = "Arrest Warrant";
             this.CalloutPosition = SpawnPoint;
 
             //Play the police scanner audio for this callout (available as of the 0.2a API)
@@ -128,9 +135,16 @@ namespace ArrestWarrantCallout
         public override bool OnCalloutAccepted()
         {
             //We accepted the callout, so lets initilize our blip from before and attach it to our ped so we know where he is.
-            myBlip = myPed.AttachBlip();
-            myBlip.Color = System.Drawing.Color.Yellow;
-            myBlip.EnableRoute(System.Drawing.Color.Yellow);
+            if (rand_num < 80)
+            {
+                myBlip = myPed.AttachBlip();
+                myBlip.Color = System.Drawing.Color.Yellow;
+                myBlip.EnableRoute(System.Drawing.Color.Yellow);
+            }
+            else
+            {
+                
+            }
             //this.pursuit = Functions.CreatePursuit();
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
             Game.DisplayNotification("Control to 1-ADAM-12 : We have wanted criminal arrest warrant, criminal is wanted for " + felony_s + ".");
@@ -176,8 +190,21 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is hiding in marked area.");
                 Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
+                
                 myPed.Tasks.Wander();
           
+            }
+            if (wep_chance > 75 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
+            {
+                Game.DisplayNotification("Control : Suspect is in posession of small arm. Be advised.");
+            }
+            else if (wep_chance >= 95)
+            {
+                Game.DisplayNotification("Control : Suspect is heavily armed and dangerous. Be advised.");
+            }
+            else // sometimes, in 5% situations suspect is armed, but player shouldnt know about it - SURPRISE.
+            {
+                Game.DisplayNotification("Control : We have no intel about possible arms posession by suspect.");
             }
            
             return base.OnCalloutAccepted();
@@ -198,6 +225,10 @@ namespace ArrestWarrantCallout
         public override void Process()
         {
             base.Process();
+            if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) > 3000f)
+            {
+                timeout_is_on = true;
+            }
             if (!fight_started)
             {
                 if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
@@ -269,8 +300,13 @@ namespace ArrestWarrantCallout
             //A simple check, if our pursuit has ended we end the callout
             if (Functions.IsPedArrested(myPed))
             {
-                Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
-                Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                if (!got_arrested_notf)
+                {
+
+                    Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
+                    Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                    got_arrested_notf = true;
+                }
                 
             }
             else if ((myPed.Position == airport_pos) || (myPed.Position == seaport_pos))
@@ -278,12 +314,16 @@ namespace ArrestWarrantCallout
                 Game.DisplayNotification("Control : Suspect has escaped.");
                 Game.DisplayNotification("1-ADAM-12 : Acknowledged. 10-4 on my location.");
                 Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                myPed.Dismiss();
+                this.End();
                 
             }
             else if(timeout_is_on)
             {
                 Game.DisplayNotification("1-ADAM-12 : We have lost track of suspect.");
                 Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                myPed.Dismiss();
+                this.End();
                 
             }
             if (!myPed.Exists())
