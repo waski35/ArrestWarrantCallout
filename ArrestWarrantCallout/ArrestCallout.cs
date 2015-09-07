@@ -11,7 +11,7 @@ using Rage;
 
 namespace ArrestWarrantCallout
 {
-    [CalloutInfo("ArrestCallout", CalloutProbability.Medium)]
+    [CalloutInfo("ArrestCallout", CalloutProbability.VeryHigh)]
 
     class ArrestCallout : Callout
     {
