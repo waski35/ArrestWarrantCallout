@@ -379,13 +379,51 @@ namespace ArrestWarrantCallout
             {
                 s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(800f));
             }
-            else // county
+            else if (rand >= 40 && rand < 80)// county
             {
                 s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(800f));
+            }
+            else if (rand >=80) // mountains
+            {
+                s_point = PickMountainLocation();
             }
 
 
             return s_point;
+        }
+        private Vector3 PickMountainLocation()
+        {
+            Vector3 ret = new Vector3(0, 0, 0);
+            Random random_m = new Random();
+            int rand_moun = random_m.Next(1, 5);
+            switch (rand_moun)
+            {
+                case 1: ret.X = 0;
+                        ret.Y = 0;
+                        ret.Z = 0;
+                        break;
+                case 2: ret.X = 0;
+                        ret.Y = 0;
+                        ret.Z = 0;
+                        break;
+                case 3: ret.X = 0;
+                        ret.Y = 0;
+                        ret.Z = 0;
+                        break;
+                case 4: ret.X = 0;
+                        ret.Y = 0;
+                        ret.Z = 0;
+                        break;
+                case 5: ret.X = 0;
+                        ret.Y = 0;
+                        ret.Z = 0;
+                        break;
+                default : ret.X = 0;
+                          ret.Y = 0;
+                          ret.Z = 0;
+                        break;
+            }
+            return ret;
         }
 
     }
