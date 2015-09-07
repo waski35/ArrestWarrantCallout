@@ -166,7 +166,7 @@ namespace ArrestWarrantCallout
                 Functions.PlayScannerAudio("WE_HAVE SUSPECT_HEADING AREA_LOS_SANTOS_INTERNATIONAL UNITS_RESPOND_CODE_03");
                 if (rand_num >= 10 && rand_num < 30)
                 {
-                    myPed.Tasks.DriveToPosition(airport_pos, 35, DriveToPositionFlags.RespectVehicles);
+                    myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.RespectVehicles);
                    
                 }
                 else
@@ -181,7 +181,7 @@ namespace ArrestWarrantCallout
                 Functions.PlayScannerAudio("WE_HAVE SUSPECT_HEADING AREA_PORT_OF_SOUTH_LOS_SANTOS UNITS_RESPOND_CODE_03");
                 if (rand_num >= 40 && rand_num < 70)
                 {
-                    myPed.Tasks.DriveToPosition(seaport_pos, 35, DriveToPositionFlags.RespectVehicles);
+                    myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.RespectVehicles);
                    
                 }
                 else
@@ -314,7 +314,18 @@ namespace ArrestWarrantCallout
                 }
                 
             }
-            else if ((myPed.Position == airport_pos) || (myPed.Position == seaport_pos))
+            if (myPed.IsDead)
+            {
+                if (!got_arrested_notf)
+                {
+
+                    Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
+                    Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                    got_arrested_notf = true;
+                }
+
+            }
+            else if ((myPed.Position.DistanceTo(airport_pos)) < 3f || (myPed.Position.DistanceTo(seaport_pos) < 3f))
             {
                 Game.DisplayNotification("Control : Suspect has escaped.");
                 Game.DisplayNotification("1-ADAM-12 : Acknowledged. 10-4 on my location.");
@@ -355,11 +366,11 @@ namespace ArrestWarrantCallout
             Vector3 s_point = new Vector3(0, 0, 0);
             if (rand > 0 && rand < 40) //city
             {
-                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(2000f));
+                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(800f));
             }
             else // county
             {
-                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(2000f));
+                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(800f));
             }
 
 
