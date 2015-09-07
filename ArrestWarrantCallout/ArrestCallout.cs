@@ -97,7 +97,7 @@ namespace ArrestWarrantCallout
             //Create the vehicle for our ped
             if (rand_num > 10 && rand_num < 50)
             {
-                myVehicle = new Vehicle(Model.RandomVehicleModel, SpawnPoint);
+                myVehicle = new Vehicle("DUKES2", SpawnPoint);
                 if (!myVehicle.Exists()) return false;
             }
             //Now we have spawned them, check they actually exist and if not return false (preventing the callout from being accepted and aborting it)
