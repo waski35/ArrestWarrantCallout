@@ -288,6 +288,7 @@ namespace ArrestWarrantCallout
                     if (myPed.IsInAnyVehicle(true))
                     {
                         myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                        myPed.Tasks.Wander();
                     }
                 }
             }
@@ -298,6 +299,7 @@ namespace ArrestWarrantCallout
                     if (myPed.IsInAnyVehicle(true))
                     {
                         myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                        myPed.Tasks.Wander();
                     }
                 }
             }
