@@ -71,7 +71,7 @@ namespace ArrestWarrantCallout
                     break;
             }
             Random weh = new Random();
-            weh_chance = weh.Next(1, 100);
+            weh_chance = weh.Next(51, 100);
 
             airport_pos = new Vector3(Convert.ToSingle(-1029.346), Convert.ToSingle(-2499.977), Convert.ToSingle(19.704)); // set airport pos
             seaport_pos = new Vector3(Convert.ToSingle(1181.485), Convert.ToSingle(-3099.899), Convert.ToSingle(5.43373)); // set seaport pos
@@ -182,7 +182,7 @@ namespace ArrestWarrantCallout
                 }
                 else
                 {
-                    myPed.Tasks.FollowNavigationMeshToPosition(airport_pos, 0, 10, 12000);
+                    myPed.Tasks.FollowNavigationMeshToPosition(airport_pos, 0, 10);
                     
                 }
             }
@@ -197,7 +197,7 @@ namespace ArrestWarrantCallout
                 }
                 else
                 {
-                    myPed.Tasks.FollowNavigationMeshToPosition(seaport_pos, 0, 10, 12000);
+                    myPed.Tasks.FollowNavigationMeshToPosition(seaport_pos, 0, 10); // not working - susp standing steel
                     
                 }
           
