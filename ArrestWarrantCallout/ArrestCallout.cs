@@ -123,7 +123,7 @@ namespace ArrestWarrantCallout
             
 
             //If we made it this far both exist so let's warp the ped into the driver seat
-            if (rand_num > 10 && rand_num < 50)
+            if (weh_chance > 50)
             {
                 myPed.WarpIntoVehicle(myVehicle, -1);
             }
