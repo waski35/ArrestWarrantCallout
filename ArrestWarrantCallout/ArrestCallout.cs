@@ -397,7 +397,7 @@ namespace ArrestWarrantCallout
             {
                 Vector3 vect = new Vector3();
                 vect = PickMountainLocation();
-                s_point = World.GetNextPositionOnStreet(vect.Around(400f));
+                s_point = World.GetNextPositionOnStreet(vect.Around(700f));
             }
             else if (rand >=80) // mountains
             {
