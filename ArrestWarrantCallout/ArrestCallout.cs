@@ -32,6 +32,7 @@ namespace ArrestWarrantCallout
         private int wep_chance = 0;
         private bool got_arrested_notf = false;
         private int weh_chance = 0;
+        private bool pursuit_created = true;
 
         /// <summary>
         /// OnBeforeCalloutDisplayed is where we create a blip for the user to see where the pursuit is happening, we initiliaize any variables above and set
@@ -274,8 +275,12 @@ namespace ArrestWarrantCallout
                     }
                     else if (r_chance >= 65 && r_chance < 85)
                     {
-                        this.pursuit = Functions.CreatePursuit();
-                        Functions.AddPedToPursuit(this.pursuit, this.myPed);
+                        if (!pursuit_created)
+                        {
+                            this.pursuit = Functions.CreatePursuit();
+                            Functions.AddPedToPursuit(this.pursuit, this.myPed);
+                            pursuit_created = true;
+                        }
                     }
                     else
                     {
@@ -290,6 +295,10 @@ namespace ArrestWarrantCallout
                 {
                     if (r_chance > 45 )
                     {
+                        if (pursuit_created)
+                        {
+                           
+                        }
                         myPed.Tasks.Clear();
                         if (myPed.IsInAnyVehicle(true))
                         {
