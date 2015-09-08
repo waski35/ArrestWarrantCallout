@@ -44,7 +44,7 @@ namespace ArrestWarrantCallout
             //Set our spawn point to be on a street around 300f (distance) away from the player.
             //SpawnPoint = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(500f));
             Random random_number = new Random();
-            rand_num = random_number.Next(1, 100);
+            rand_num = random_number.Next(1, 100); // chance what suspect will do
             SpawnPoint = CreateWantedPedLoc(rand_num);
 
             Random purs = new Random();
@@ -182,7 +182,7 @@ namespace ArrestWarrantCallout
                 }
                 else
                 {
-                    myPed.Tasks.FollowNavigationMeshToPosition(airport_pos, 0, 10);
+                    myPed.Tasks.FollowNavigationMeshToPosition(airport_pos, 0f, 10f);// not working - susp standing steel
                     
                 }
             }
@@ -197,7 +197,7 @@ namespace ArrestWarrantCallout
                 }
                 else
                 {
-                    myPed.Tasks.FollowNavigationMeshToPosition(seaport_pos, 0, 10); // not working - susp standing steel
+                    myPed.Tasks.FollowNavigationMeshToPosition(seaport_pos, 0f, 10f); // not working - susp standing steel
                     
                 }
           
