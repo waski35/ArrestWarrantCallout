@@ -103,11 +103,11 @@ namespace ArrestWarrantCallout
                     myVehicle = new Vehicle("DUKES2", SpawnPoint);
                     if (!myVehicle.Exists()) return false;
                 }
-                else
+                /*else
                 {
                     myVehicle = new Vehicle("BLISTA", SpawnPoint);
                     if (!myVehicle.Exists()) return false;
-                }
+                }*/
                 
             }
             //Now we have spawned them, check they actually exist and if not return false (preventing the callout from being accepted and aborting it)
@@ -219,7 +219,7 @@ namespace ArrestWarrantCallout
             }
             else // sometimes, in 5% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
-                Game.DisplayNotification("Control : We have no intel about possible arms posession by suspect.");
+                Game.DisplayNotification("Control : We have no intel about possible firearms posession by suspect.");
             }
            
             return base.OnCalloutAccepted();
@@ -333,7 +333,6 @@ namespace ArrestWarrantCallout
 
                     Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
                     Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                    myBlip.Delete();
                     got_arrested_notf = true;
                 }
                 
@@ -345,7 +344,6 @@ namespace ArrestWarrantCallout
 
                     Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
                     Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                    myBlip.Delete();
                     got_arrested_notf = true;
                 }
 
