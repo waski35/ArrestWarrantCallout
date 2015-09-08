@@ -82,6 +82,7 @@ namespace ArrestWarrantCallout
             
             Persona crim_persona_new = new Persona(myPed, crim_presona_old.Gender, crim_presona_old.BirthDay, 5, crim_presona_old.Forename, crim_presona_old.Surname, crim_presona_old.LicenseState, crim_presona_old.TimesStopped, true, false, false);
             Functions.SetPersonaForPed(myPed, crim_persona_new);
+            /*
             if (wep_chance > 70)
             {
                 WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
@@ -93,7 +94,7 @@ namespace ArrestWarrantCallout
                 myPed.GiveNewWeapon(w_ass, 100, false);
                 myPed.Armor = 50;
             }
-
+            */
             //Create the vehicle for our ped
             if (rand_num > 10 && rand_num < 50)
             {
@@ -172,7 +173,7 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to airport.");
-                Functions.PlayScannerAudio("WE_HAVE SUSPECT_HEADING AREA_LOS_SANTOS_INTERNATIONAL UNITS_RESPOND_CODE_03");
+                Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_HEADING AREA_LOS_SANTOS_INTERNATIONAL UNITS_RESPOND_CODE_03",SpawnPoint);
                 if (rand_num >= 10 && rand_num < 30)
                 {
                     myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.RespectVehicles);
@@ -239,10 +240,10 @@ namespace ArrestWarrantCallout
         public override void Process()
         {
             base.Process();
-            if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) > 3000f)
+            /*if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) > 3000f)
             {
                 timeout_is_on = true;
-            }
+            }*/
             if (!fight_started)
             {
                 if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
@@ -251,10 +252,21 @@ namespace ArrestWarrantCallout
                     myBlip.RouteColor = System.Drawing.Color.Red;
                     
                     
-                    if (r_chance > 10 && r_chance < 65)
+                    if (r_chance >= 40 && r_chance < 65)
                     {
                         if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
                         {
+                            if (wep_chance > 70)
+                            {
+                                WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                                myPed.GiveNewWeapon(w_ass, 25, true);
+                            }
+                            else if (wep_chance >= 95)
+                            {
+                                WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                                myPed.GiveNewWeapon(w_ass, 100, true);
+                                myPed.Armor = 50;
+                            }
                             myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
                             fight_started = true;
                         }
@@ -321,6 +333,7 @@ namespace ArrestWarrantCallout
 
                     Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
                     Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                    myBlip.Delete();
                     got_arrested_notf = true;
                 }
                 
@@ -332,6 +345,7 @@ namespace ArrestWarrantCallout
 
                     Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
                     Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                    myBlip.Delete();
                     got_arrested_notf = true;
                 }
 
@@ -377,11 +391,13 @@ namespace ArrestWarrantCallout
             Vector3 s_point = new Vector3(0, 0, 0);
             if (rand > 0 && rand < 40) //city
             {
-                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(800f));
+                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(200f));
             }
             else if (rand >= 40 && rand < 80)// county
             {
-                s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(800f));
+                Vector3 vect = new Vector3();
+                vect = PickMountainLocation();
+                s_point = World.GetNextPositionOnStreet(vect.Around(400f));
             }
             else if (rand >=80) // mountains
             {
