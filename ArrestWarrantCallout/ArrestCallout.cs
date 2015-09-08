@@ -59,7 +59,7 @@ namespace ArrestWarrantCallout
                     break;
                 case 2: felony_s = "murder";
                     break;
-                case 3: felony_s = "ripe";
+                case 3: felony_s = "rape";
                     break;
                 case 4: felony_s = "assault";
                     break;
@@ -111,11 +111,11 @@ namespace ArrestWarrantCallout
             }
             //Now we have spawned them, check they actually exist and if not return false (preventing the callout from being accepted and aborting it)
             if (!myPed.Exists()) return false;
-            if (myPed.Position.DistanceTo(airport_pos) < 1000f && rand_num >=10 && rand_num < 40)
+            if (myPed.Position.DistanceTo(airport_pos) < 200f && rand_num >=10 && rand_num < 40)
             {
                 return false;
             }
-            if (myPed.Position.DistanceTo(seaport_pos) < 1000f && rand_num >=40 && rand_num < 80)
+            if (myPed.Position.DistanceTo(seaport_pos) < 200f && rand_num >=40 && rand_num < 80)
             {
                 return false;
             }
@@ -167,7 +167,7 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is unaware about Your arrest warrant.");
                 Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
-                myPed.Tasks.StandStill(60000);
+                myPed.Tasks.Wander();
             }
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
             {
@@ -210,7 +210,7 @@ namespace ArrestWarrantCallout
             }
             if (wep_chance > 75 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
-                Game.DisplayNotification("Control : Suspect is in posession of small arm. Be advised.");
+                Game.DisplayNotification("Control : Suspect is in posession of small firearms. Be advised.");
             }
             else if (wep_chance >= 95)
             {
@@ -336,7 +336,7 @@ namespace ArrestWarrantCallout
                 }
 
             }
-            else if ((myPed.Position.DistanceTo(airport_pos)) < 3f || (myPed.Position.DistanceTo(seaport_pos) < 3f))
+            /*else if ((myPed.Position.DistanceTo(airport_pos)) < 3f || (myPed.Position.DistanceTo(seaport_pos) < 3f))
             {
                 Game.DisplayNotification("Control : Suspect has escaped.");
                 Game.DisplayNotification("1-ADAM-12 : Acknowledged. 10-4 on my location.");
@@ -344,7 +344,7 @@ namespace ArrestWarrantCallout
                 myPed.Dismiss();
                 this.End();
                 
-            }
+            }*/
             else if(timeout_is_on)
             {
                 Game.DisplayNotification("1-ADAM-12 : We have lost track of suspect.");
@@ -398,29 +398,29 @@ namespace ArrestWarrantCallout
             int rand_moun = random_m.Next(1, 5);
             switch (rand_moun)
             {
-                case 1: ret.X = 0;
-                        ret.Y = 0;
-                        ret.Z = 0;
+                case 1: ret.X = -1019.682f;
+                        ret.Y = 4946.673f;
+                        ret.Z = 198.5889f;
                         break;
-                case 2: ret.X = 0;
-                        ret.Y = 0;
-                        ret.Z = 0;
+                case 2: ret.X = -58.27036f;
+                        ret.Y = 4978.937f;
+                        ret.Z = 398.5285f;
                         break;
-                case 3: ret.X = 0;
-                        ret.Y = 0;
-                        ret.Z = 0;
+                case 3: ret.X = 460.409f;
+                        ret.Y = 5561.787f;
+                        ret.Z = 781.1706f;
                         break;
-                case 4: ret.X = 0;
-                        ret.Y = 0;
-                        ret.Z = 0;
+                case 4: ret.X = -1019.682f;
+                        ret.Y = 4946.673f;
+                        ret.Z = 198.5889f;
                         break;
-                case 5: ret.X = 0;
-                        ret.Y = 0;
-                        ret.Z = 0;
+                case 5: ret.X = -58.27036f;
+                        ret.Y = 4978.937f;
+                        ret.Z = 398.5285f;
                         break;
-                default : ret.X = 0;
-                          ret.Y = 0;
-                          ret.Z = 0;
+                default: ret.X = 460.409f;
+                        ret.Y = 5561.787f;
+                        ret.Z = 781.1706f;
                         break;
             }
             return ret;
