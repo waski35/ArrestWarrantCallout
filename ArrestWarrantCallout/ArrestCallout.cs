@@ -31,6 +31,7 @@ namespace ArrestWarrantCallout
         private string felony_s = "";
         private int wep_chance = 0;
         private bool got_arrested_notf = false;
+        private int weh_chance = 0;
 
         /// <summary>
         /// OnBeforeCalloutDisplayed is where we create a blip for the user to see where the pursuit is happening, we initiliaize any variables above and set
@@ -68,7 +69,8 @@ namespace ArrestWarrantCallout
                 default: felony_s = "number of crimes";
                     break;
             }
-
+            Random weh = new Random();
+            weh_chance = weh.Next(1, 100);
 
             airport_pos = new Vector3(Convert.ToSingle(-1029.346), Convert.ToSingle(-2499.977), Convert.ToSingle(19.704)); // set airport pos
             seaport_pos = new Vector3(Convert.ToSingle(1181.485), Convert.ToSingle(-3099.899), Convert.ToSingle(5.43373)); // set seaport pos
@@ -96,13 +98,11 @@ namespace ArrestWarrantCallout
             }
             */
             //Create the vehicle for our ped
-            if (rand_num > 10 && rand_num < 50)
+            if (weh_chance > 50)
             {
-                if (rand_num < 30)
-                {
                     myVehicle = new Vehicle("DUKES2", SpawnPoint);
                     if (!myVehicle.Exists()) return false;
-                }
+                
                 /*else
                 {
                     myVehicle = new Vehicle("BLISTA", SpawnPoint);
@@ -150,16 +150,16 @@ namespace ArrestWarrantCallout
         public override bool OnCalloutAccepted()
         {
             //We accepted the callout, so lets initilize our blip from before and attach it to our ped so we know where he is.
-            if (rand_num < 80)
-            {
+            //if (rand_num < 80)
+            //{
                 myBlip = myPed.AttachBlip();
                 myBlip.Color = System.Drawing.Color.Yellow;
                 myBlip.EnableRoute(System.Drawing.Color.Yellow);
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 
-            }
+            //}
             //this.pursuit = Functions.CreatePursuit();
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
             Game.DisplayNotification("Control to 1-ADAM-12 : We have wanted criminal arrest warrant, criminal is wanted for " + felony_s + ".");
@@ -174,7 +174,7 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to airport.");
                 Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_HEADING AREA_LOS_SANTOS_INTERNATIONAL UNITS_RESPOND_CODE_03",SpawnPoint);
-                if (rand_num >= 10 && rand_num < 30)
+                if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.RespectVehicles);
                    
@@ -189,7 +189,7 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to seaport.");
                 Functions.PlayScannerAudio("WE_HAVE SUSPECT_HEADING AREA_PORT_OF_SOUTH_LOS_SANTOS UNITS_RESPOND_CODE_03");
-                if (rand_num >= 40 && rand_num < 70)
+                if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.RespectVehicles);
                    
