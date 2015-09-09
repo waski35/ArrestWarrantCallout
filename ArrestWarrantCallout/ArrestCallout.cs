@@ -288,11 +288,11 @@ namespace ArrestWarrantCallout
 
                     if (!myPed.IsInAnyVehicle(true))
                     {
-                        if (r_chance >= 40 && r_chance < 65)
+                        if (r_chance >= 40 && r_chance < 100)
                         {
                             if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
                             {
-                                if (wep_chance > 70)
+                                if (wep_chance > 50 && wep_chance < 95)
                                 {
                                     WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
                                     myPed.GiveNewWeapon(w_ass, 25, true);
@@ -308,15 +308,15 @@ namespace ArrestWarrantCallout
                             }
 
                         }
-                        else if (r_chance >= 65 && r_chance < 85) // pursui chance
-                        {
-                            if (!pursuit_created)
-                            {
+                        //else if (r_chance >= 65 && r_chance < 85) // pursui chance
+                        //{
+                          //  if (!pursuit_created)
+                           // {
                                 //this.pursuit = Functions.CreatePursuit();
                                 //Functions.AddPedToPursuit(this.pursuit, this.myPed);
                                 //pursuit_created = true;
-                            }
-                        }
+                           // }
+                        //}
                         else
                         {
                             //continue
