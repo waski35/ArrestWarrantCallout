@@ -185,13 +185,13 @@ namespace ArrestWarrantCallout
             if (rand_num > 0 && rand_num < 10) // waiting at home
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is unaware about Your arrest warrant.");
-                Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
                 myPed.Tasks.Wander();
             }
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to airport.");
-                Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_HEADING AREA_LOS_SANTOS_INTERNATIONAL UNITS_RESPOND_CODE_03",SpawnPoint);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING AREA_LOS_SANTOS_INTERNATIONAL UNITS_RESPOND_CODE_03",SpawnPoint);
                 if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.RespectVehicles);
@@ -206,7 +206,7 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 40  && rand_num < 80) // fleeing to seaport
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to seaport.");
-                Functions.PlayScannerAudio("WE_HAVE SUSPECT_HEADING AREA_PORT_OF_SOUTH_LOS_SANTOS UNITS_RESPOND_CODE_03");
+                Functions.PlayScannerAudio("SUSPECT_HEADING AREA_PORT_OF_SOUTH_LOS_SANTOS UNITS_RESPOND_CODE_03");
                 if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.RespectVehicles);
@@ -222,7 +222,7 @@ namespace ArrestWarrantCallout
             else // hiding in mouintains
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is hiding in marked area.");
-                Functions.PlayScannerAudioUsingPosition("WE_HAVE SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
                 
                 myPed.Tasks.Wander();
           
@@ -264,9 +264,13 @@ namespace ArrestWarrantCallout
             }*/
             if (from_pos.DistanceTo(myPed.Position) > 240f)
             {
-                myBlipArea.Position = myPed.Position;
-                from_pos = myPed.Position;
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
+                if (myBlipArea.Exists())
+                {
+                    myBlipArea.Position = myPed.Position;
+                    from_pos = myPed.Position;
+
+                    Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
+                }
             }
            
             if (!fight_started)
@@ -279,42 +283,44 @@ namespace ArrestWarrantCallout
                     myBlip.RouteColor = System.Drawing.Color.Red;
                     myPed.KeepTasks = false;
                     blip_attached = true;
-                    
-                    
-                    
-                    
-                    if (r_chance >= 40 && r_chance < 65)
+
+
+
+                    if (!myPed.IsInAnyVehicle(true))
                     {
-                        if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
+                        if (r_chance >= 40 && r_chance < 65)
                         {
-                            if (wep_chance > 70)
+                            if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
                             {
-                                WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
-                                myPed.GiveNewWeapon(w_ass, 25, true);
+                                if (wep_chance > 70)
+                                {
+                                    WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                                    myPed.GiveNewWeapon(w_ass, 25, true);
+                                }
+                                else if (wep_chance >= 95)
+                                {
+                                    WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                                    myPed.GiveNewWeapon(w_ass, 100, true);
+                                    myPed.Armor = 50;
+                                }
+                                myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
+                                fight_started = true;
                             }
-                            else if (wep_chance >= 95)
-                            {
-                                WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
-                                myPed.GiveNewWeapon(w_ass, 100, true);
-                                myPed.Armor = 50;
-                            }
-                            myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
-                            fight_started = true;
+
                         }
-                        
-                    }
-                    else if (r_chance >= 65 && r_chance < 85) // pursui chance
-                    {
-                        if (!pursuit_created)
+                        else if (r_chance >= 65 && r_chance < 85) // pursui chance
                         {
-                            //this.pursuit = Functions.CreatePursuit();
-                            //Functions.AddPedToPursuit(this.pursuit, this.myPed);
-                            //pursuit_created = true;
+                            if (!pursuit_created)
+                            {
+                                //this.pursuit = Functions.CreatePursuit();
+                                //Functions.AddPedToPursuit(this.pursuit, this.myPed);
+                                //pursuit_created = true;
+                            }
                         }
-                    }
-                    else
-                    {
-                        //continue
+                        else
+                        {
+                            //continue
+                        }
                     }
 
                 }
@@ -341,8 +347,8 @@ namespace ArrestWarrantCallout
                     }
                 }
             }
-            if (!susp_left_car)
-            {
+            //if (!susp_left_car)
+            //{
                 if (rand_num >= 10 && rand_num < 40)
                 {
                     if (myPed.Position.DistanceTo(airport_pos) < 50)
@@ -379,7 +385,7 @@ namespace ArrestWarrantCallout
                         }
                     }
                 }
-            }
+           // }
             //A simple check, if our pursuit has ended we end the callout
             if (Functions.IsPedArrested(myPed))
             {
