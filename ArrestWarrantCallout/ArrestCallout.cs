@@ -343,7 +343,7 @@ namespace ArrestWarrantCallout
             }
             if (!susp_left_car)
             {
-                if (rand_num >= 10 && rand_num < 30)
+                if (rand_num >= 10 && rand_num < 40)
                 {
                     if (myPed.Position.DistanceTo(airport_pos) < 50)
                     {
@@ -352,10 +352,16 @@ namespace ArrestWarrantCallout
                             myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             susp_left_car = true;
                             myPed.Tasks.Wander();
+                            if (myBlipArea.Exists())
+                            {
+                                myBlipArea.Position = myPed.Position;
+                                from_pos = myPed.Position;
+                            }
+                            Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", myPed.Position);
                         }
                     }
                 }
-                if (rand_num >= 40 && rand_num < 70)
+                if (rand_num >= 40 && rand_num < 80)
                 {
                     if (myPed.Position.DistanceTo(seaport_pos) < 50)
                     {
@@ -364,6 +370,12 @@ namespace ArrestWarrantCallout
                             myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             susp_left_car = true;
                             myPed.Tasks.Wander();
+                            if (myBlipArea.Exists())
+                            {
+                                myBlipArea.Position = myPed.Position;
+                                from_pos = myPed.Position;
+                            }
+                            Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", myPed.Position);
                         }
                     }
                 }
