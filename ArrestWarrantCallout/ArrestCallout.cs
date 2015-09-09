@@ -228,7 +228,7 @@ namespace ArrestWarrantCallout
                 myPed.Tasks.Wander();
           
             }
-            if (wep_chance > 40 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
+            if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("Control : Suspect is in posession of small firearms. Be advised.");
             }
@@ -236,7 +236,7 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("Control : Suspect is heavily armed and dangerous. Be advised.");
             }
-            else // sometimes, in 5% situations suspect is armed, but player shouldnt know about it - SURPRISE.
+            else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
                 Game.DisplayNotification("Control : We have no intel about possible firearms posession by suspect.");
             }
