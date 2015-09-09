@@ -262,7 +262,7 @@ namespace ArrestWarrantCallout
             {
                 timeout_is_on = true;
             }*/
-            if (from_pos.DistanceTo(myPed.Position) > 240f)
+            if (from_pos.DistanceTo(myPed.Position) > 180f)
             {
                 if (myBlipArea.Exists())
                 {
@@ -362,8 +362,10 @@ namespace ArrestWarrantCallout
                             {
                                 myBlipArea.Position = myPed.Position;
                                 from_pos = myPed.Position;
+
+                                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
                             }
-                            Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", myPed.Position);
+                            
                         }
                     }
                 }
@@ -380,8 +382,10 @@ namespace ArrestWarrantCallout
                             {
                                 myBlipArea.Position = myPed.Position;
                                 from_pos = myPed.Position;
+
+                                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
                             }
-                            Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", myPed.Position);
+                            
                         }
                     }
                 }
