@@ -228,7 +228,7 @@ namespace ArrestWarrantCallout
                 myPed.Tasks.Wander();
           
             }
-            if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
+            if (wep_chance > 40 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("Control : Suspect is in posession of small firearms. Be advised.");
             }
@@ -275,7 +275,8 @@ namespace ArrestWarrantCallout
             }
             if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 5 && !player_interacting)
             {
-                myPed.Tasks.Clear();
+                //myPed.Tasks.Clear();
+                //myPed.Dismiss();
                 player_interacting = true;
             }
            
@@ -292,13 +293,13 @@ namespace ArrestWarrantCallout
 
                     
 
-                    //if (!myPed.IsInAnyVehicle(true))
-                    //{
-                        //if (r_chance >= 40 && r_chance < 100)
-                        //{
+                    if (!myPed.IsInAnyVehicle(true))
+                    {
+                        if (r_chance >= 20 && r_chance < 100)
+                        {
                             //if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
                             //{
-                                if (wep_chance > 50 && wep_chance < 95)
+                                if (wep_chance > 40 && wep_chance < 95)
                                 {
                                     WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
                                     myPed.GiveNewWeapon(w_ass, 25, true);
@@ -309,14 +310,14 @@ namespace ArrestWarrantCallout
                                     myPed.GiveNewWeapon(w_ass, 100, true);
                                     myPed.Armor = 50;
                                 }
-                                //myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
+                                myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
                                 fight_started = true;
                             //}
 
-                        //}
+                        }
                        
 
-                    //}
+                    }
 
                 }
             }
