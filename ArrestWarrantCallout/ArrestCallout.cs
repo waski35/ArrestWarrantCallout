@@ -34,11 +34,12 @@ namespace ArrestWarrantCallout
         private bool got_arrested_notf = false;
         private int weh_chance = 0;
         private bool pursuit_created = true;
-        private uint speed_zone = 0;
+        
         private Vector3 from_pos;
         private bool blip_attached = false;
         private bool susp_left_car = true;
         private bool surrenderred = false;
+        private bool player_interacting = false;
        
 
         /// <summary>
@@ -227,7 +228,7 @@ namespace ArrestWarrantCallout
                 myPed.Tasks.Wander();
           
             }
-            if (wep_chance > 75 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
+            if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("Control : Suspect is in posession of small firearms. Be advised.");
             }
@@ -272,6 +273,11 @@ namespace ArrestWarrantCallout
                     Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
                 }
             }
+            if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 5 && !player_interacting)
+            {
+                myPed.Tasks.Clear();
+                player_interacting = true;
+            }
            
             if (!fight_started)
             {
@@ -284,14 +290,14 @@ namespace ArrestWarrantCallout
                     myPed.KeepTasks = false;
                     blip_attached = true;
 
+                    
 
-
-                    if (!myPed.IsInAnyVehicle(true))
-                    {
-                        if (r_chance >= 40 && r_chance < 100)
-                        {
-                            if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
-                            {
+                    //if (!myPed.IsInAnyVehicle(true))
+                    //{
+                        //if (r_chance >= 40 && r_chance < 100)
+                        //{
+                            //if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
+                            //{
                                 if (wep_chance > 50 && wep_chance < 95)
                                 {
                                     WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
@@ -303,29 +309,18 @@ namespace ArrestWarrantCallout
                                     myPed.GiveNewWeapon(w_ass, 100, true);
                                     myPed.Armor = 50;
                                 }
-                                myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
+                                //myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
                                 fight_started = true;
-                            }
+                            //}
 
-                        }
-                        //else if (r_chance >= 65 && r_chance < 85) // pursui chance
-                        //{
-                          //  if (!pursuit_created)
-                           // {
-                                //this.pursuit = Functions.CreatePursuit();
-                                //Functions.AddPedToPursuit(this.pursuit, this.myPed);
-                                //pursuit_created = true;
-                           // }
                         //}
-                        else
-                        {
-                            //continue
-                        }
-                    }
+                       
+
+                    //}
 
                 }
             }
-            if (fight_started && !surrenderred)
+            /*if (fight_started && !surrenderred)
             {
                 if (myPed.Health < 45)
                 {
@@ -346,9 +341,9 @@ namespace ArrestWarrantCallout
                         surrenderred = true;
                     }
                 }
-            }
-            //if (!susp_left_car)
-            //{
+            }*/
+            if (!player_interacting || !blip_attached)
+            {
                 if (rand_num >= 10 && rand_num < 40)
                 {
                     if (myPed.Position.DistanceTo(airport_pos) < 50)
@@ -373,7 +368,7 @@ namespace ArrestWarrantCallout
                 {
                     if (myPed.Position.DistanceTo(seaport_pos) < 50)
                     {
-                        if (myPed.IsInAnyVehicle(true))
+                        if (myPed.IsInAnyVehicle(true) && !player_interacting)
                         {
                             myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             susp_left_car = true;
@@ -389,7 +384,7 @@ namespace ArrestWarrantCallout
                         }
                     }
                 }
-           // }
+            }
             //A simple check, if our pursuit has ended we end the callout
             if (Functions.IsPedArrested(myPed))
             {
