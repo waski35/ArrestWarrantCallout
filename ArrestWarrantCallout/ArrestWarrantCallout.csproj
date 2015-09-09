@@ -17,10 +17,10 @@
     <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>None.IncrementOnDemand.DayStamp.Increment</AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>None.IncrementOnDemand.DayStamp.Increment</AssemblyFileVersionSettings>
-    <AssemblyInfoVersionSettings>None.IncrementOnDemand.DayStamp.Increment</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.1.8.34</AssemblyVersion>
+    <AssemblyVersionSettings>None.IncrementOnDemand.DayStamp.TimeStamp</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.IncrementOnDemand.DayStamp.TimeStamp</AssemblyFileVersionSettings>
+    <AssemblyInfoVersionSettings>None.IncrementOnDemand.DayStamp.TimeStamp</AssemblyInfoVersionSettings>
+    <AssemblyVersion>0.1.9.1234</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

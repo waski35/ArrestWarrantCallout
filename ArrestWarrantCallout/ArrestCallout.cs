@@ -20,6 +20,7 @@ namespace ArrestWarrantCallout
         private Ped myPed; // a rage ped
         private Vector3 SpawnPoint; // a Vector3
         private Blip myBlip; // a rage blip
+        private Blip myBlipArea;
         private LHandle pursuit; // an API pursuit handle
         private int rand_num = 0;
         private Vector3 airport_pos;
@@ -33,6 +34,12 @@ namespace ArrestWarrantCallout
         private bool got_arrested_notf = false;
         private int weh_chance = 0;
         private bool pursuit_created = true;
+        private uint speed_zone = 0;
+        private Vector3 from_pos;
+        private bool blip_attached = false;
+        private bool susp_left_car = true;
+        private bool surrenderred = false;
+       
 
         /// <summary>
         /// OnBeforeCalloutDisplayed is where we create a blip for the user to see where the pursuit is happening, we initiliaize any variables above and set
@@ -153,9 +160,19 @@ namespace ArrestWarrantCallout
             //We accepted the callout, so lets initilize our blip from before and attach it to our ped so we know where he is.
             //if (rand_num < 80)
             //{
-                myBlip = myPed.AttachBlip();
-                myBlip.Color = System.Drawing.Color.Yellow;
-                myBlip.EnableRoute(System.Drawing.Color.Yellow);
+                //myBlip = myPed.AttachBlip();
+                myBlipArea = new Blip(myPed.Position, 60f);
+                myBlipArea.Color = System.Drawing.Color.Yellow;
+                //myBlipArea.EnableRoute(System.Drawing.Color.Yellow);
+                from_pos = new Vector3(myPed.Position.X,myPed.Position.Y,myPed.Position.Z);
+                //speed_zone = World.AddSpeedZone(myPed.Position, 40f, 30f);
+                //myBlip.Sprite = BlipSprite.Destination;
+                
+                myBlipArea.Alpha = 0.45f;
+                //myBlip.Scale = 5.0f;
+            
+            
+
             //}
             //else
             //{
@@ -245,12 +262,25 @@ namespace ArrestWarrantCallout
             {
                 timeout_is_on = true;
             }*/
+            if (from_pos.DistanceTo(myPed.Position) > 240f)
+            {
+                myBlipArea.Position = myPed.Position;
+                from_pos = myPed.Position;
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
+            }
+           
             if (!fight_started)
             {
-                if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
+                if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 && !blip_attached)
                 {
+                    if (myBlipArea.Exists()) myBlipArea.Delete();
+                    myBlip = myPed.AttachBlip();
                     myBlip.Color = System.Drawing.Color.Red;
                     myBlip.RouteColor = System.Drawing.Color.Red;
+                    myPed.KeepTasks = false;
+                    blip_attached = true;
+                    
+                    
                     
                     
                     if (r_chance >= 40 && r_chance < 65)
@@ -273,13 +303,13 @@ namespace ArrestWarrantCallout
                         }
                         
                     }
-                    else if (r_chance >= 65 && r_chance < 85)
+                    else if (r_chance >= 65 && r_chance < 85) // pursui chance
                     {
                         if (!pursuit_created)
                         {
-                            this.pursuit = Functions.CreatePursuit();
-                            Functions.AddPedToPursuit(this.pursuit, this.myPed);
-                            pursuit_created = true;
+                            //this.pursuit = Functions.CreatePursuit();
+                            //Functions.AddPedToPursuit(this.pursuit, this.myPed);
+                            //pursuit_created = true;
                         }
                     }
                     else
@@ -289,7 +319,7 @@ namespace ArrestWarrantCallout
 
                 }
             }
-            if (fight_started)
+            if (fight_started && !surrenderred)
             {
                 if (myPed.Health < 45)
                 {
@@ -307,33 +337,37 @@ namespace ArrestWarrantCallout
                         }
 
                         myPed.Tasks.PutHandsUp(8000, Game.LocalPlayer.Character);
+                        surrenderred = true;
                     }
                 }
             }
-
-            if (rand_num >= 10 && rand_num < 30)
+            if (!susp_left_car)
             {
-                if (myPed.Position.DistanceTo(airport_pos) < 50)
+                if (rand_num >= 10 && rand_num < 30)
                 {
-                    if (myPed.IsInAnyVehicle(true))
+                    if (myPed.Position.DistanceTo(airport_pos) < 50)
                     {
-                        myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
-                        myPed.Tasks.Wander();
+                        if (myPed.IsInAnyVehicle(true))
+                        {
+                            myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                            susp_left_car = true;
+                            myPed.Tasks.Wander();
+                        }
+                    }
+                }
+                if (rand_num >= 40 && rand_num < 70)
+                {
+                    if (myPed.Position.DistanceTo(seaport_pos) < 50)
+                    {
+                        if (myPed.IsInAnyVehicle(true))
+                        {
+                            myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                            susp_left_car = true;
+                            myPed.Tasks.Wander();
+                        }
                     }
                 }
             }
-            if (rand_num >= 40 && rand_num < 70)
-            {
-                if (myPed.Position.DistanceTo(seaport_pos) < 50)
-                {
-                    if (myPed.IsInAnyVehicle(true))
-                    {
-                        myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
-                        myPed.Tasks.Wander();
-                    }
-                }
-            }
-
             //A simple check, if our pursuit has ended we end the callout
             if (Functions.IsPedArrested(myPed))
             {
@@ -388,6 +422,7 @@ namespace ArrestWarrantCallout
         public override void End()
         {
             base.End();
+            if (myBlipArea.Exists()) myBlipArea.Delete();
             if (myBlip.Exists()) myBlip.Delete();
             if (myPed.Exists()) myPed.Delete();
             
