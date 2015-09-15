@@ -6,3 +6,11 @@ d:\Moje dokumenty\Visual Studio 2013\Projects\ArrestWarrantCallout\ArrestWarrant
 d:\Moje dokumenty\Visual Studio 2013\Projects\ArrestWarrantCallout\ArrestWarrantCallout\bin\Debug\RagePluginHookSDK.xml
 d:\Moje dokumenty\Visual Studio 2013\Projects\ArrestWarrantCallout\ArrestWarrantCallout\obj\Debug\ArrestWarrantCallout.dll
 d:\Moje dokumenty\Visual Studio 2013\Projects\ArrestWarrantCallout\ArrestWarrantCallout\obj\Debug\ArrestWarrantCallout.pdb
+D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\bin\Debug\ArrestWarrantCallout.dll
+D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\bin\Debug\ArrestWarrantCallout.pdb
+D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\bin\Debug\LSPD First Response.dll
+D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\bin\Debug\RagePluginHookSDK.dll
+D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\bin\Debug\LMS.Common.dll
+D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\bin\Debug\RagePluginHookSDK.xml
+D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\obj\Debug\ArrestWarrantCallout.dll
+D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\obj\Debug\ArrestWarrantCallout.pdb

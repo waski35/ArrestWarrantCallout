@@ -81,11 +81,13 @@ namespace ArrestWarrantCallout
             Random weh = new Random();
             weh_chance = weh.Next(51, 100);
 
+            
+
             airport_pos = new Vector3(Convert.ToSingle(-1029.346), Convert.ToSingle(-2499.977), Convert.ToSingle(19.704)); // set airport pos
             seaport_pos = new Vector3(Convert.ToSingle(1181.485), Convert.ToSingle(-3099.899), Convert.ToSingle(5.43373)); // set seaport pos
 
             //Create our ped in the world
-            myPed = new Ped("a_m_y_mexthug_01", SpawnPoint, 0f);
+            myPed = new Ped(getVarPedModel(), SpawnPoint, 0f);
             myPed.KeepTasks = true;
             myPed.MakePersistent();
             DateTime birthday = new DateTime(1971,01,23);
@@ -107,18 +109,14 @@ namespace ArrestWarrantCallout
             }
             */
             //Create the vehicle for our ped
-            if (weh_chance > 50)
+            if (weh_chance > 50 && weh_chance < 101)
             {
-                    myVehicle = new Vehicle("DUKES2", SpawnPoint);
-                    if (!myVehicle.Exists()) return false;
-                
-                /*else
-                {
-                    myVehicle = new Vehicle("BLISTA", SpawnPoint);
-                    if (!myVehicle.Exists()) return false;
-                }*/
-                
+                myVehicle = new Vehicle(getVarVehModel(), SpawnPoint);
+                if (!myVehicle.Exists()) return false;
             }
+           
+
+            
             //Now we have spawned them, check they actually exist and if not return false (preventing the callout from being accepted and aborting it)
             if (!myPed.Exists()) return false;
             if (myPed.Position.DistanceTo(airport_pos) < 200f && rand_num >=10 && rand_num < 40)
@@ -192,7 +190,7 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to airport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING AREA_LOS_SANTOS_INTERNATIONAL UNITS_RESPOND_CODE_03",SpawnPoint);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
                 if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.RespectVehicles);
@@ -207,7 +205,7 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 40  && rand_num < 80) // fleeing to seaport
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspect is fleeing to seaport.");
-                Functions.PlayScannerAudio("SUSPECT_HEADING AREA_PORT_OF_SOUTH_LOS_SANTOS UNITS_RESPOND_CODE_03");
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03",seaport_pos);
                 if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.RespectVehicles);
@@ -500,6 +498,77 @@ namespace ArrestWarrantCallout
                         break;
             }
             return ret;
+        }
+        private String getVarPedModel ()
+        {
+            Random ped_var = new Random();
+            int ped_var_mod = ped_var.Next(1, 100);
+            String ped_model = "a_m_y_mexthug_01";
+            if (ped_var_mod > 0 && ped_var_mod < 10)
+            {
+                ped_model = "a_m_y_mexthug_01";
+            }
+            else if (ped_var_mod >= 10 && ped_var_mod < 20)
+            {
+                ped_model = "a_f_y_hipster_01";
+            }
+            else if (ped_var_mod >= 20 && ped_var_mod < 30)
+            {
+                ped_model = "a_f_y_runner_01";
+            }
+            else if (ped_var_mod >= 30 && ped_var_mod < 40)
+            {
+                ped_model = "a_f_y_topless_01";
+            }
+            else if (ped_var_mod >= 40 && ped_var_mod < 50)
+            {
+                ped_model = "a_m_y_business_03";
+            }
+            else if (ped_var_mod >= 50 && ped_var_mod < 60)
+            {
+                ped_model = "a_m_y_cyclist_01";
+            }
+            else if (ped_var_mod >= 60 && ped_var_mod < 70)
+            {
+                ped_model = "a_m_y_gay_01";
+            }
+            else if (ped_var_mod >= 70 && ped_var_mod < 80)
+            {
+                ped_model = "a_m_y_hippy_01";
+            }
+            else if (ped_var_mod >= 80 && ped_var_mod < 101)
+            {
+                ped_model = "a_m_y_skater_01";
+            }
+            return ped_model;
+        }
+
+        private String getVarVehModel()
+        {
+            String veh_model = "DUKES2";
+            Random veh_var = new Random();
+            int veh_var_mod = veh_var.Next(1, 100);
+            if (veh_var_mod > 0 && veh_var_mod < 20)
+            {
+                veh_model = "DUKES2";
+            }
+            else if (veh_var_mod >= 20 && veh_var_mod < 40)
+            {
+                veh_model = "BLISTA";
+            }
+            else if (veh_var_mod >= 40 && veh_var_mod < 60)
+            {
+                veh_model = "BUFFALO";
+            }
+            else if (veh_var_mod >= 60 && veh_var_mod < 80)
+            {
+                veh_model = "BURRITO3";
+            }
+            else if (veh_var_mod >= 80 && veh_var_mod < 101)
+            {
+                veh_model = "DILETTANTE";
+            }
+            return veh_model;
         }
 
     }
