@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ArrestCallout.cs" />
     <Compile Include="ArrestPlugin.cs" />
+    <Compile Include="PrisonEscape.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
