@@ -54,8 +54,9 @@ namespace ArrestWarrantCallout
                 //If the player goes on duty we need to register our custom callouts
                 //Here we register our ExampleCallout class which is inside our Callouts folder (APIExample.Callouts namespace)
                 Functions.RegisterCallout(typeof(ArrestCallout));
+                Functions.RegisterCallout(typeof(PrisonEscape));
             }
-        }
+       }
     }
 
     }

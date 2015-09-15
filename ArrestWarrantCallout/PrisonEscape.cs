@@ -30,17 +30,12 @@ namespace ArrestWarrantCallout
         private bool timeout_is_on = false;
         private int r_chance = 0;
         private bool fight_started = false;
-        private int r_felony = 0;
-        private string felony_s = "";
         private int wep_chance = 0;
         private bool got_arrested_notf = false;
-        private int weh_chance = 0;
-        private bool pursuit_created = true;
+        
 
         private Vector3 from_pos;
         private bool blip_attached = false;
-        private bool susp_left_car = true;
-        private bool surrenderred = false;
         private bool player_interacting = false;
 
 
@@ -316,7 +311,7 @@ namespace ArrestWarrantCallout
                         {
                             myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             myPed2.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
-                            susp_left_car = true;
+                            
                             myPed.Tasks.Wander();
                             myPed2.Tasks.Wander();
                             if (myBlipArea.Exists())
@@ -338,7 +333,7 @@ namespace ArrestWarrantCallout
                         {
                             myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             myPed2.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
-                            susp_left_car = true;
+                            
                             myPed.Tasks.Wander();
                             myPed2.Tasks.Wander();
                             if (myBlipArea.Exists())
