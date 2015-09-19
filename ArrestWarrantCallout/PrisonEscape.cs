@@ -32,6 +32,7 @@ namespace ArrestWarrantCallout
         private bool fight_started = false;
         private int wep_chance = 0;
         private bool got_arrested_notf = false;
+        private bool pursuit_created = false;
         
 
         private Vector3 from_pos;
@@ -186,7 +187,7 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("Control : We have no intel about possible firearms posession by suspects.");
             }
-
+            
             return base.OnCalloutAccepted();
         }
 
@@ -211,6 +212,14 @@ namespace ArrestWarrantCallout
             {
                 timeout_is_on = true;
             }*/
+            if (!pursuit_created)
+            {
+                pursuit = Functions.CreatePursuit();
+                Functions.AddPedToPursuit(pursuit, myPed);
+                Functions.AddPedToPursuit(pursuit, myPed2);
+                Functions.RequestBackup(myPed.Position.Around(90f), LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                pursuit_created = true;
+            }
             if (from_pos.DistanceTo(myPed.Position) > 180f)
             {
                 if (myBlipArea.Exists())
