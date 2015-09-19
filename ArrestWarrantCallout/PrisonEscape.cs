@@ -413,14 +413,11 @@ namespace ArrestWarrantCallout
         }
         private Vector3 CreateWantedPedLoc(int rand)
         {
-            Vector3 s_point = new Vector3(0, 0, 0);
-            Vector3 vect = new Vector3();
-            vect = PickPrisonLocation();
-            s_point = World.GetNextPositionOnStreet(vect.Around(30f));
+            Vector3 s_point = new Vector3(1994.899f, 2651.14f, 46.34293f);
+            //Vector3 vect = new Vector3();
+            //vect = PickPrisonLocation();
+            //s_point = World.GetNextPositionOnStreet(vect.Around(30f));
             
-            
-
-
             return s_point;
         }
         private Vector3 PickPrisonLocation()

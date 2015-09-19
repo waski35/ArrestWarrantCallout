@@ -1475,6 +1475,307 @@ Initializes a new instance of the <see cref="T:Rage.TaskSequence" /> class.
 <summary>
 This class allows executing multiple tasks on a <see cref="T:Rage.Ped" /> in sequence.
 </summary></member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.DeathTime">
+            <summary>
+Time to death (HACK for underwater). If -ve don't ever die.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CStrLowerMax">
+            <summary>
+Behaviour unknown.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CStrLowerMin">
+            <summary>
+Behaviour unknown.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CStrUpperMax">
+            <summary>
+Behaviour unknown.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CStrUpperMin">
+            <summary>
+Proportions to what the strength would be normally.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.UseCStrModulation">
+            <summary>
+If enabled upper and lower body strength scales with character strength, using the range given by parameters below.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.InitialNeckRampDuration">
+            <summary>
+Duration of the ramp to bring the neck stiffness/damping back to normal levels.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.InitialNeckDuration">
+            <summary>
+Duration for which the neck stays at intial stiffness/damping.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.InitialWeaknessRampDuration">
+            <summary>
+Duration of the ramp to bring the character's upper body stiffness back to normal levels.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.InitialWeaknessZeroDuration">
+            <summary>
+Duration for which the character's upper body stays at minimum stiffness (not quite zero).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.UseExtendedCatchFall">
+            <summary>
+Keep the character active instead of relaxing at the end of the catch fall.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.FallingReaction">
+            <summary>
+0=Rollup, 1=Catchfall, 2=rollDownStairs, 3=smartFall.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.Melee">
+            <summary>
+Behaviour unknown.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.StableHandsAndNeck">
+            <summary>
+Additional stability for hands and neck (less loose).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.AllowInjuredThighReach">
+            <summary>
+When false don't try to reach for injured Thighs.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.AllowInjuredLowerLegReach">
+            <summary>
+When false don't try to reach for injured Lower Legs (shins/feet).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.AllowInjuredLeg">
+            <summary>
+When false injured leg is not bent and character does not bend to reach it.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.AllowInjuredArm">
+            <summary>
+Injured arm code runs if arm hit (turns and steps and bends injured arm).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.Fling">
+            <summary>
+Type of reaction.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.ReachForWound">
+            <summary>
+Type of reaction.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.ChickenArms">
+            <summary>
+Type of reaction.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.Crouching">
+            <summary>
+Is the guy crouching or not.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CpainSmooth2Zero">
+            <summary>
+Conscious pain ramping to zero after cpainSmooth2Time + cpainDuration (Replaces spinePainTime).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CpainTwistMag">
+            <summary>
+Conscious pain spine Twist/Lean2Side magnitude Replaces spinePainTwistMultiplier).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CpainMag">
+            <summary>
+Conscious pain spine Lean(back/Forward) magnitude (Replaces spinePainMultiplier).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CpainDuration">
+            <summary>
+Conscious pain duration at cpainMag/cpainTwistMag after cpainSmooth2Time.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.CpainSmooth2Time">
+            <summary>
+Conscious pain duration ramping from zero to cpainMag/cpainTwistMag.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.ExagZeroTime">
+            <summary>
+Exaggerate bullet time spent at 0 spine lean/twist after exagDuration + exagSmooth2Zero.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.ExagSmooth2Zero">
+            <summary>
+Exaggerate bullet duration ramping to zero after exagDuration.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.ExagTwistMag">
+            <summary>
+Exaggerate bullet spine Twist magnitude.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.ExagMag">
+            <summary>
+Exaggerate bullet spine Lean magnitude.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.ExagDuration">
+            <summary>
+Exaggerate bullet duration (at exagMag/exagTwistMag).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.TimeBeforeReachForWound">
+            <summary>
+Time, in seconds, before the character begins to grab for the wound on the first hit.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.FlingTime">
+            <summary>
+Duration of the fling behaviour.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.FlingWidth">
+            <summary>
+Width of the fling behaviour.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.AngVelScaleMask">
+            <summary>
+Parts to scale the initial angular velocity by angVelScale (otherwize scale by 1.0).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.AngVelScale">
+            <summary>
+How much to scale the angular velocity coming in from animation of a part if it is in angVelScaleMask (otherwise scale by 1.0).
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.AlwaysResetNeckLooseness">
+            <summary>
+Neck looseness always reset on shotNewBullet even if previous looseness ramp still running.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.AlwaysResetLooseness">
+            <summary>
+Looseness always reset on shotNewBullet even if previous looseness ramp still running.  Except for the neck which has it's own ramp.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.BulletProofVest">
+            <summary>
+Looseness applied to spine is different if bulletProofVest is true.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.SpineBlendZero">
+            <summary>
+Spine is always blended with zero pose this much and up to 1 as the character become stationary.  If negative no blend is ever applied.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.SpineBlendExagCPain">
+            <summary>
+True: spine is blended with zero pose, false: spine is blended with zero pose if not setting exag or cpain.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.GrabHoldTime">
+            <summary>
+How long to hold for before returning to relaxed arm position.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.MinLegsLooseness">
+            <summary>
+Minimum looseness to apply to the Legs.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.MinArmsLooseness">
+            <summary>
+Minimum looseness to apply to the arms.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.Looseness4Stagger">
+            <summary>
+How loose the upperBody of the character is made by a newBullet if staggerFall is running (and not falling).  Note atm the neck ramp values are ignored in staggerFall.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.Looseness4Fall">
+            <summary>
+How loose the character is made by a newBullet if falling.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.LoosenessAmount">
+            <summary>
+How loose the character is made by a newBullet. between 0 and 1.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.KMult4Legs">
+            <summary>
+How much to add to leg stiffnesses dependent on looseness.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.KMultOnLoose">
+            <summary>
+How much to add to upperbody stiffness dependent on looseness.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.NeckDamping">
+            <summary>
+Damping of neck.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.NeckStiffness">
+            <summary>
+Stiffness of neck.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.InitialNeckDamping">
+            <summary>
+Intial damping of neck after being shot.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.InitialNeckStiffness">
+            <summary>
+Initial stiffness of neck after being shot.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.ArmStiffness">
+            <summary>
+Arm stiffness.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.SpineDamping">
+            <summary>
+Stiffness of body. Feeds through to roll_up.
+</summary>
+        </member>
+        <member name="P:Rage.Euphoria.EuphoriaMessageShot.BodyStiffness">
+            <summary>
+Stiffness of body. Feeds through to roll_up.
+</summary>
+        </member>
+        <member name="P:Rage.Attributes.EuphoriaParameterAttribute.Name">
+            <summary>
+Gets or sets the name of this parameter.
+</summary>
+        </member>
+        <member name="M:Rage.Attributes.EuphoriaParameterAttribute.#ctor">
+            <summary>
+Initializes a new instance of the <see cref="!:ConsoleVariableAttribute" /> class.
+</summary>
+        </member>
+        <member name="M:Rage.Attributes.EuphoriaParameterAttribute.#ctor(System.String)">
+            <summary>
+Initializes a new instance of the <see cref="!:ConsoleVariableAttribute" /> class.
+</summary>
+            <param name="name">The name of the parameter, used in the message.</param>
+        </member>
         <member name="M:Rage.ConsoleCommands.ArgumentParsers.ConsoleCommandArgumentParserVehicle.Parse(System.String)">
             <summary>
 Parses the specified argument as a <see cref="T:Rage.Vehicle" />.
@@ -2773,6 +3074,12 @@ Initializes a new instance of the <see cref="T:Rage.Attributes.ConsoleCommandArg
             <summary>
 Attribute to let argument parsers specify which types they support.
 </summary>
+        </member>
+        <member name="P:Rage.Attributes.PluginAttribute.SupportUrl">
+            <summary>
+Gets or sets the support URL for this plugin. If specified, this URL will be presented to the user if the plugin crashes (Or if the game crashes while the plugin was ticking).
+</summary>
+            <value>The support URL.</value>
         </member>
         <member name="P:Rage.Attributes.PluginAttribute.DefaultVehicleType">
             <summary>
@@ -10699,6 +11006,11 @@ Attribute to let parameter auto completers specify which types they support.
         <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.ConsoleVariableAttribute'. -->
         <!-- Discarding badly formed XML document comment for member 'M:Rage.Game.DisplayHelp(System.String)'. -->
         <!-- Discarding badly formed XML document comment for member 'T:UsingString'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.EuphoriaParameterAttribute'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.ConsoleCommandAttribute'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.ConsoleVariableAttribute'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:UsingString'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.EuphoriaParameterAttribute'. -->
         <!-- Discarding badly formed XML document comment for member 'T:UsingString'. -->
         <!-- Discarding badly formed XML document comment for member 'M:Rage.MathHelper.Max``1(``0[])'. -->
         <!-- Discarding badly formed XML document comment for member 'M:Rage.MathHelper.Min``1(``0[])'. -->
@@ -10801,6 +11113,7 @@ Attribute to let parameter auto completers specify which types they support.
         <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.ConsoleVariableAttribute'. -->
         <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.ConsoleCommandAttribute'. -->
         <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.ConsoleVariableAttribute'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:Rage.Attributes.EuphoriaParameterAttribute'. -->
         <!-- Discarding badly formed XML document comment for member 'M:Rage.Game.DisplayHelp(System.String)'. -->
         <!-- Discarding badly formed XML document comment for member 'T:UsingString'. -->
     </members>
