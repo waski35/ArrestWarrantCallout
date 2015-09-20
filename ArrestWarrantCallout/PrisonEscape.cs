@@ -240,7 +240,7 @@ namespace ArrestWarrantCallout
             if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 || myPed2.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 && !blip_attached)
             {
                 if (myBlipArea.Exists()) myBlipArea.Delete();
-                if (myPed.Exists())
+                /*if (myPed.Exists())
                 {
                     myBlip = myPed.AttachBlip();
                     myBlip.Color = System.Drawing.Color.Red;
@@ -253,6 +253,14 @@ namespace ArrestWarrantCallout
                     myBlip2.Color = System.Drawing.Color.Red;
                     //myBlip2.RouteColor = System.Drawing.Color.Red;
                     myPed2.KeepTasks = false;
+                }*/
+                if (!pursuit_created)
+                {
+                    pursuit = Functions.CreatePursuit();
+                    Functions.AddPedToPursuit(pursuit, myPed);
+                    Functions.AddPedToPursuit(pursuit, myPed2);
+                    Functions.RequestBackup(myPed.Position.Around(90f), LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                    pursuit_created = true;
                 }
                 blip_attached = true;
             }
