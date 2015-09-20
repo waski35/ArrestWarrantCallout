@@ -33,7 +33,9 @@ namespace ArrestWarrantCallout
         private int wep_chance = 0;
         private bool got_arrested_notf = false;
         private bool pursuit_created = false;
-        
+
+        private Group myGroup;
+
 
         private Vector3 from_pos;
         private bool blip_attached = false;
@@ -93,6 +95,12 @@ namespace ArrestWarrantCallout
 
             //Now we have spawned them, check they actually exist and if not return false (preventing the callout from being accepted and aborting it)
             if (!myPed.Exists()) return false;
+            if (!myPed2.Exists()) return false;
+
+            myGroup = new Group(myPed);
+            myGroup.AddMember(myPed2);
+
+
             if (myPed.Position.DistanceTo(airport_pos) < 200f && rand_num >= 10 && rand_num < 40)
             {
                 return false;
@@ -107,7 +115,7 @@ namespace ArrestWarrantCallout
             if (myVehicle.Exists())
             {
                 myPed.WarpIntoVehicle(myVehicle, -1);
-                myPed2.WarpIntoVehicle(myVehicle, 1);
+                myPed2.WarpIntoVehicle(myVehicle, 0);
             }
             // Show the user where the pursuit is about to happen and block very close peds.
             this.ShowCalloutAreaBlipBeforeAccepting(SpawnPoint, 15f);
@@ -259,7 +267,7 @@ namespace ArrestWarrantCallout
                     pursuit = Functions.CreatePursuit();
                     Functions.AddPedToPursuit(pursuit, myPed);
                     Functions.AddPedToPursuit(pursuit, myPed2);
-                    Functions.RequestBackup(myPed.Position.Around(90f), LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                    Functions.RequestBackup(World.GetNextPositionOnStreet(myPed.Position.Around(30f)), LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
                     pursuit_created = true;
                 }
                 blip_attached = true;
@@ -428,6 +436,7 @@ namespace ArrestWarrantCallout
             if (myBlip2.Exists()) myBlip2.Delete();
             if (myPed.Exists()) myPed.Delete();
             if (myPed2.Exists()) myPed2.Delete();
+            if (myGroup.Exists()) myGroup.Delete();
 
 
         }
