@@ -245,7 +245,7 @@ namespace ArrestWarrantCallout
                 player_interacting = true;
             }
 
-            if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 || myPed2.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 && !blip_attached)
+            if ((myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 || myPed2.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50) && !blip_attached)
             {
                 if (myBlipArea.Exists()) myBlipArea.Delete();
                 /*if (myPed.Exists())
@@ -267,7 +267,7 @@ namespace ArrestWarrantCallout
                     pursuit = Functions.CreatePursuit();
                     Functions.AddPedToPursuit(pursuit, myPed);
                     Functions.AddPedToPursuit(pursuit, myPed2);
-                    Functions.RequestBackup(World.GetNextPositionOnStreet(myPed.Position.Around(30f)), LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                    Functions.RequestBackup(World.GetNextPositionOnStreet(myPed.Position).Around(15f), LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
                     pursuit_created = true;
                 }
                 blip_attached = true;
