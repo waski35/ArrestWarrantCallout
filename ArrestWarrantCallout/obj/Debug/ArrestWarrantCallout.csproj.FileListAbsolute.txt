@@ -14,3 +14,4 @@ D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrant
 D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\bin\Debug\RagePluginHookSDK.xml
 D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\obj\Debug\ArrestWarrantCallout.dll
 D:\Moje dokumenty\Visual Studio 2015\Projects\ArrestWarrantCallout\ArrestWarrantCallout\obj\Debug\ArrestWarrantCallout.pdb
+d:\moje dokumenty\visual studio 2013\Projects\ArrestWarrantCallout\ArrestWarrantCallout\obj\Debug\ArrestWarrantCallout.csprojResolveAssemblyReference.cache

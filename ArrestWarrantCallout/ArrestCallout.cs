@@ -277,20 +277,18 @@ namespace ArrestWarrantCallout
                 //myPed.Dismiss();
                 player_interacting = true;
             }
-           
-            if (!fight_started)
+
+            if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 && !blip_attached)
             {
-                if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 && !blip_attached)
-                {
-                    if (myBlipArea.Exists()) myBlipArea.Delete();
-                    myBlip = myPed.AttachBlip();
-                    myBlip.Color = System.Drawing.Color.Red;
-                    myBlip.RouteColor = System.Drawing.Color.Red;
-                    myPed.KeepTasks = false;
-                    blip_attached = true;
-
-                    
-
+                if (myBlipArea.Exists()) myBlipArea.Delete();
+                myBlip = myPed.AttachBlip();
+                myBlip.Color = System.Drawing.Color.Red;
+                myBlip.RouteColor = System.Drawing.Color.Red;
+                myPed.KeepTasks = false;
+                blip_attached = true;
+            }
+            if (!fight_started && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
+            {
                     if (!myPed.IsInAnyVehicle(true))
                     {
                         if (r_chance >= 20 && r_chance < 100)
@@ -317,7 +315,7 @@ namespace ArrestWarrantCallout
 
                     }
 
-                }
+                
             }
             /*if (fight_started && !surrenderred)
             {

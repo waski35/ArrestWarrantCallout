@@ -237,29 +237,28 @@ namespace ArrestWarrantCallout
                 player_interacting = true;
             }
 
-            if (!fight_started)
+            if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 || myPed2.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 && !blip_attached)
             {
-                if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 || myPed2.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 && !blip_attached )
+                if (myBlipArea.Exists()) myBlipArea.Delete();
+                if (myPed.Exists())
                 {
-                    if (myBlipArea.Exists()) myBlipArea.Delete();
-                    if (myPed.Exists())
-                    {
-                        myBlip = myPed.AttachBlip();
-                        myBlip.Color = System.Drawing.Color.Red;
-                        //myBlip.RouteColor = System.Drawing.Color.Red;
-                        myPed.KeepTasks = false;
-                    }
-                    if (myPed2.Exists())
-                    {
-                        myBlip2 = myPed2.AttachBlip();
-                        myBlip2.Color = System.Drawing.Color.Red;
-                        //myBlip2.RouteColor = System.Drawing.Color.Red;
-                        myPed2.KeepTasks = false;
-                    }
-                    blip_attached = true;
+                    myBlip = myPed.AttachBlip();
+                    myBlip.Color = System.Drawing.Color.Red;
+                    //myBlip.RouteColor = System.Drawing.Color.Red;
+                    myPed.KeepTasks = false;
+                }
+                if (myPed2.Exists())
+                {
+                    myBlip2 = myPed2.AttachBlip();
+                    myBlip2.Color = System.Drawing.Color.Red;
+                    //myBlip2.RouteColor = System.Drawing.Color.Red;
+                    myPed2.KeepTasks = false;
+                }
+                blip_attached = true;
+            }
 
-
-
+            if (!fight_started && (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50 || myPed2.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50))
+            {
                     if (!myPed.IsInAnyVehicle(true) || !myPed2.IsInAnyVehicle(true))
                     {
                         if (r_chance >= 5 && r_chance < 100)
@@ -290,7 +289,7 @@ namespace ArrestWarrantCallout
 
                     }
 
-                }
+                
             }
             /*if (fight_started && !surrenderred)
             {
