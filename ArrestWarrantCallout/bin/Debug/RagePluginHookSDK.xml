@@ -60,6 +60,39 @@ Undocumented.
 Undocumented.
 </summary>
         </member>
+        <member name="M:Rage.InternetTime.GetCurrentDateTime">
+            <summary>
+Gets the current date and time from the internet.
+</summary>
+            <remarks>The time server can only be accessed once every five seconds. If less than five seconds have passed since the last call to GetCurrentDateTime(), the time will be inferred from the last time returned. Note, that this limit is enforced across plugins.</remarks>
+            <returns>A <see cref="T:System.DateTime" /> representing the current time in UTC.</returns>
+        </member>
+        <member name="P:Rage.InternetTime.LastTime">
+            <summary>
+Gets the last time retrieved from the server.
+</summary>
+            <value>The last time retrieved from the server.</value>
+        </member>
+        <member name="P:Rage.InternetTime.TimeSinceLastAccess">
+            <summary>
+Gets the time elapsed since the time was last retrieved from the server.
+</summary>
+            <value>The time elapsed since the time was last retrieved from the server.</value>
+        </member>
+        <member name="P:Rage.InternetTime.CanAccess">
+            <summary>
+                <para>Gets a value indicating whether the time can be retrieved right now.</para>
+                <para>The time server can only be accessed once every five seconds. If less than five seconds have passed since the last call to GetCurrentDateTime(), this property will return false.</para>
+            </summary>
+            <value>
+                <c>true</c> if the time can be retrieved; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Rage.InternetTime">
+            <summary>
+                <para>Class for getting the current time from the Internet.</para>
+                <para>This class uses the TIME protocol to get the current time from nist1-macon.macon.ga.us.</para>
+            </summary>
+        </member>
         <member name="M:Rage.VehicleModder.ApplyAllMods">
             <summary>
 Applies the maximum index of all mods to this vehicle.
@@ -1775,6 +1808,32 @@ Initializes a new instance of the <see cref="!:ConsoleVariableAttribute" /> clas
 Initializes a new instance of the <see cref="!:ConsoleVariableAttribute" /> class.
 </summary>
             <param name="name">The name of the parameter, used in the message.</param>
+        </member>
+        <member name="M:Rage.Euphoria.EuphoriaMessage.PushArgument(System.String,System.Object)">
+            <summary>
+                <para>Adds the specified argument to this <see cref="T:Rage.Euphoria.EuphoriaMessage" />.</para>
+                <para>Note that this does not override existing arguments with the same name. If this is desired, use the <see cref="!:Rage::EuphoriaMessage::SetArgument" /> overload.</para>
+            </summary>
+            <param name="name">The name of the argument.</param>
+            <param name="value">
+The value of the argument.
+The following types are supported:
+<see cref="T:System.Int32" /><see cref="T:System.Single" /><see cref="T:System.Boolean" /><see cref="T:System.String" /><see cref="!:Rage::Vector3" /><see cref="!:Rage::IHandleable" /> (Rage.Vehicle, Rage.Ped, Rage.Object, etc.)
+<see cref="T:Rage.PoolHandle" /></param>
+            <exception cref="T:System.ArgumentException">Thrown if the specified value is of an unsupported type.</exception>
+        </member>
+        <member name="M:Rage.Euphoria.EuphoriaMessage.SetArgument(System.String,System.Object)">
+            <summary>
+                <para>Sets the specified argument to this <see cref="T:Rage.Euphoria.EuphoriaMessage" />.</para>
+                <para>Note that this overrides existing arguments with the same name. If this is not desired, use the <see cref="!:Rage::EuphoriaMessage::PushArgument" /> overload.</para>
+            </summary>
+            <param name="name">The name of the argument.</param>
+            <param name="value">
+The value of the argument.
+The following types are supported:
+<see cref="T:System.Int32" /><see cref="T:System.Single" /><see cref="T:System.Boolean" /><see cref="T:System.String" /><see cref="!:Rage::Vector3" /><see cref="!:Rage::IHandleable" /> (Rage.Vehicle, Rage.Ped, Rage.Object, etc.)
+<see cref="T:Rage.PoolHandle" /></param>
+            <exception cref="T:System.ArgumentException">Thrown if the specified value is of an unsupported type.</exception>
         </member>
         <member name="M:Rage.ConsoleCommands.ArgumentParsers.ConsoleCommandArgumentParserVehicle.Parse(System.String)">
             <summary>
@@ -5704,6 +5763,30 @@ Gets a value indicating whether this vehicle is a tow truck.
 Gets a value indicating whether this vehicle is a trailer.
 </summary>
             <value>The is trailer.</value>
+        </member>
+        <member name="P:Rage.Vehicle.RimColor">
+            <summary>
+Gets or sets the color of the rims on the wheels of this vehicle. The wheels must be custom.
+</summary>
+            <value>The color of the rims on the wheels of this vehicle.</value>
+        </member>
+        <member name="P:Rage.Vehicle.PearlescentColor">
+            <summary>
+Gets or sets the pearlescent color of this vehicle.
+</summary>
+            <value>The pearlescent color of this vehicle.</value>
+        </member>
+        <member name="P:Rage.Vehicle.SecondaryColor">
+            <summary>
+Gets or sets the secondary color of this vehicle.
+</summary>
+            <value>The secondary color of this vehicle.</value>
+        </member>
+        <member name="P:Rage.Vehicle.PrimaryColor">
+            <summary>
+Gets or sets the primary color of this vehicle.
+</summary>
+            <value>The primary color of this vehicle.</value>
         </member>
         <member name="P:Rage.Vehicle.Trailer">
             <summary>

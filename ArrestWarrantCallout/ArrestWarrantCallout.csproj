@@ -20,7 +20,7 @@
     <AssemblyVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.1.20.0430</AssemblyVersion>
+    <AssemblyVersion>0.2.26.1754</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,11 +42,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LSPD First Response">
-      <HintPath>E:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\core\lspdfr02b\Plugins\LSPD First Response.dll</HintPath>
+      <HintPath>G:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\core\lspdfr02b\Plugins\LSPD First Response.dll</HintPath>
     </Reference>
     <Reference Include="RagePluginHookSDK, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\ragehook\RAGEPluginHook_0_26_751_5197_ALPHA\SDK\RagePluginHookSDK.dll</HintPath>
+      <HintPath>G:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\ragehook\RAGEPluginHook_0_28_766_5281_ALPHA\SDK\RagePluginHookSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
