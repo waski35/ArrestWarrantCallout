@@ -261,7 +261,7 @@ namespace ArrestWarrantCallout
             {
                 timeout_is_on = true;
             }*/
-            if (from_pos.DistanceTo(myPed.Position) > 180f)
+            if (from_pos.DistanceTo(myPed.Position) > 700f)
             {
                 if (myBlipArea.Exists())
                 {
