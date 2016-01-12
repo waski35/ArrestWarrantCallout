@@ -228,14 +228,17 @@ namespace ArrestWarrantCallout
                 Functions.RequestBackup(myPed.Position.Around(90f), LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
                 pursuit_created = true;
             }*/
-            if (from_pos.DistanceTo(myPed.Position) > 180f)
+            if (ArrestWarrantClass.option_enable_dispatch > 0)
             {
-                if (myBlipArea.Exists())
+                if (from_pos.DistanceTo(myPed.Position) > 700f)
                 {
-                    myBlipArea.Position = myPed.Position;
-                    from_pos = myPed.Position;
+                    if (myBlipArea.Exists())
+                    {
+                        myBlipArea.Position = myPed.Position;
+                        from_pos = myPed.Position;
 
-                    Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
+                        Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
+                    }
                 }
             }
             if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 5 && !player_interacting)
