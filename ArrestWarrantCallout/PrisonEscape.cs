@@ -168,8 +168,8 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspecta are fleeing to airport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
-                
-                myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.RespectVehicles);
+
+                myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.FollowTraffic);
 
                 
             }
@@ -177,8 +177,8 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspecta are fleeing to seaport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", seaport_pos);
-                
-                myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.RespectVehicles);
+
+                myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.FollowTraffic);
                 
 
             }

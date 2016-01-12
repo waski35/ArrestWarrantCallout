@@ -193,7 +193,7 @@ namespace ArrestWarrantCallout
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
                 if (weh_chance > 50)
                 {
-                    myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.RespectVehicles);
+                    myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.FollowTraffic);
                    
                 }
                 else
@@ -208,7 +208,7 @@ namespace ArrestWarrantCallout
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03",seaport_pos);
                 if (weh_chance > 50)
                 {
-                    myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.RespectVehicles);
+                    myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.FollowTraffic);
                    
                 }
                 else
