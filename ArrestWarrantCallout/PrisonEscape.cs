@@ -169,7 +169,7 @@ namespace ArrestWarrantCallout
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspecta are fleeing to airport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
 
-                myPed.Tasks.DriveToPosition(airport_pos, 30, DriveToPositionFlags.FollowTraffic);
+                myPed.Tasks.DriveToPosition(airport_pos, 30, VehicleDrivingFlags.FollowTraffic);
 
                 
             }
@@ -178,7 +178,7 @@ namespace ArrestWarrantCallout
                 Game.DisplayNotification("Control to 1-ADAM-12 : We have information that suspecta are fleeing to seaport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", seaport_pos);
 
-                myPed.Tasks.DriveToPosition(seaport_pos, 30, DriveToPositionFlags.FollowTraffic);
+                myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
                 
 
             }
@@ -287,15 +287,15 @@ namespace ArrestWarrantCallout
                             if (wep_chance > 10 && wep_chance < 75)
                             {
                                 WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
-                                myPed.GiveNewWeapon(w_ass, 25, true);
-                                myPed2.GiveNewWeapon(w_ass, 25, true);
+                                myPed.Inventory.GiveNewWeapon(w_ass, 25, true);
+                                myPed2.Inventory.GiveNewWeapon(w_ass, 25, true);
                             }
                             else if (wep_chance >= 75)
                             {
                                 WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
-                                myPed.GiveNewWeapon(w_ass, 100, true);
+                                myPed.Inventory.GiveNewWeapon(w_ass, 100, true);
                                 myPed.Armor = 50;
-                                myPed2.GiveNewWeapon(w_ass, 100, true);
+                                myPed2.Inventory.GiveNewWeapon(w_ass, 100, true);
                                 myPed2.Armor = 50;
                             }
                             myPed.Tasks.FightAgainst(Game.LocalPlayer.Character);
