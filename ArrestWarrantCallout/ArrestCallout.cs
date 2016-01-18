@@ -386,44 +386,47 @@ namespace ArrestWarrantCallout
                 }
             }
             //A simple check, if our pursuit has ended we end the callout
-            if (Functions.IsPedArrested(myPed))
+            if (myPed.IsValid())
             {
-                if (!got_arrested_notf)
+                if (myPed.IsCuffed)
                 {
+                    if (!got_arrested_notf)
+                    {
 
-                    Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
-                    Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                    got_arrested_notf = true;
+                        Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
+                        Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                        got_arrested_notf = true;
+                    }
+
                 }
-                
-            }
-            if (myPed.IsDead)
-            {
-                if (!got_arrested_notf)
+                if (myPed.IsDead)
                 {
+                    if (!got_arrested_notf)
+                    {
 
-                    Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
-                    Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                    got_arrested_notf = true;
+                        Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
+                        Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                        got_arrested_notf = true;
+                    }
+
                 }
+                /*else if ((myPed.Position.DistanceTo(airport_pos)) < 3f || (myPed.Position.DistanceTo(seaport_pos) < 3f))
+                {
+                    Game.DisplayNotification("Control : Suspect has escaped.");
+                    Game.DisplayNotification("1-ADAM-12 : Acknowledged. 10-4 on my location.");
+                    Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                    myPed.Dismiss();
+                    this.End();
+                
+                }*/
+                else if (timeout_is_on)
+                {
+                    Game.DisplayNotification("1-ADAM-12 : We have lost track of suspect.");
+                    Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                    myPed.Dismiss();
+                    this.End();
 
-            }
-            /*else if ((myPed.Position.DistanceTo(airport_pos)) < 3f || (myPed.Position.DistanceTo(seaport_pos) < 3f))
-            {
-                Game.DisplayNotification("Control : Suspect has escaped.");
-                Game.DisplayNotification("1-ADAM-12 : Acknowledged. 10-4 on my location.");
-                Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                myPed.Dismiss();
-                this.End();
-                
-            }*/
-            else if(timeout_is_on)
-            {
-                Game.DisplayNotification("1-ADAM-12 : We have lost track of suspect.");
-                Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                myPed.Dismiss();
-                this.End();
-                
+                }
             }
             if (!myPed.Exists())
             {
