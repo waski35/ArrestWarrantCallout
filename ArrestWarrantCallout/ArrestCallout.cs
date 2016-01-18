@@ -428,6 +428,13 @@ namespace ArrestWarrantCallout
 
                 }
             }
+            if (myPed.IsValid())
+            {
+                if (got_arrested_notf == true && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) > 100f)
+                {
+                    this.End();
+                }
+            }
             if (!myPed.Exists())
             {
                 this.End();
