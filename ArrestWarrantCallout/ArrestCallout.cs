@@ -179,7 +179,7 @@ namespace ArrestWarrantCallout
             //}
             //this.pursuit = Functions.CreatePursuit();
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
-            Game.DisplayNotification("~b~ Control to 1-ADAM-12 ~w~ : We have wanted criminal arrest warrant, criminal is wanted for " + felony_s + ".");
+            Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have wanted criminal arrest warrant, criminal is wanted for " + felony_s + ".");
             Game.DisplaySubtitle("Go to marked area and arrest wanted criminal.",9000);
             if (rand_num > 0 && rand_num < 10) // waiting at home
             {
@@ -189,7 +189,7 @@ namespace ArrestWarrantCallout
             }
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
             {
-                Game.DisplayNotification("~b~ Control to 1-ADAM-12 ~w~ : We have information that suspect is fleeing to airport.");
+                Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is fleeing to airport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
                 if (weh_chance > 50)
                 {
@@ -204,7 +204,7 @@ namespace ArrestWarrantCallout
             }
             else if (rand_num >= 40  && rand_num < 80) // fleeing to seaport
             {
-                Game.DisplayNotification("~b~ Control to 1-ADAM-12 ~w~ : We have information that suspect is fleeing to seaport.");
+                Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is fleeing to seaport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03",seaport_pos);
                 if (weh_chance > 50)
                 {
@@ -220,7 +220,7 @@ namespace ArrestWarrantCallout
             }
             else // hiding in mouintains
             {
-                Game.DisplayNotification("~b~ Control to 1-ADAM-12 ~w~ : We have information that suspect is ~y~ hiding in marked area.");
+                Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is ~y~ hiding in marked area.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
                 
                 myPed.Tasks.Wander();
@@ -421,7 +421,7 @@ namespace ArrestWarrantCallout
                         }
                         else
                         {*/
-                            Game.DisplayNotification("~b~ 1-ADAM-12 ~w~ : To Control, Suspect is in custody.");
+                        Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
                             Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                             got_arrested_notf = true;
                         //}
@@ -443,7 +443,7 @@ namespace ArrestWarrantCallout
                         }
                         else
                         {*/
-                            Game.DisplayNotification("~b~ 1-ADAM-12 ~w~ : To Control, Suspect is in custody.");
+                        Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
                             Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                             got_arrested_notf = true;
                         //}
@@ -461,7 +461,7 @@ namespace ArrestWarrantCallout
                 }*/
                 else if (timeout_is_on)
                 {
-                    Game.DisplayNotification("~b~ 1-ADAM-12 ~w~ : We have lost track of suspect.");
+                    Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : We have lost track of suspect.");
                     Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                     myPed.Dismiss();
                     this.End();

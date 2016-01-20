@@ -15,6 +15,7 @@ namespace ArrestWarrantCallout
     {
         public static string plug_ver = "Arrest Warrant Callout " + typeof(ArrestWarrantClass).Assembly.GetName().Version;
         public static int option_enable_dispatch = 0;
+        public static string option_player_name = "01-ADAM-12";
         
     /// <summary>
     /// Do not rename! Attributes or inheritance based plugins will follow when the API is more in depth.
@@ -87,6 +88,16 @@ namespace ArrestWarrantCallout
                         index_start = line.IndexOf('=');
                         index_stop = line.Length - line.IndexOf('=');
                         option_enable_dispatch = Convert.ToInt32(line.Substring(index_start + 1));
+                    }
+                    if (line.Contains("player_name="))
+                    {
+                        index_start = line.IndexOf('=');
+                        index_stop = line.Length - line.IndexOf('=');
+                        option_player_name = Convert.ToString(line.Substring(index_start + 1));
+                        if (option_player_name == "" || option_player_name.Length < 2)
+                        {
+                            option_player_name = "01-ADAM-12";
+                        }
                     }
                     
 
