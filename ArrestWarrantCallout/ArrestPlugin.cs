@@ -63,6 +63,7 @@ namespace ArrestWarrantCallout
                 //Here we register our ExampleCallout class which is inside our Callouts folder (APIExample.Callouts namespace)
                 Functions.RegisterCallout(typeof(ArrestCallout));
                 Functions.RegisterCallout(typeof(PrisonEscape));
+                Functions.RegisterCallout(typeof(ArrestatWorkplaceCallout));
                 ReadSettings();
             }
        }
