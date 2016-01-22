@@ -141,7 +141,7 @@ namespace ArrestWarrantCallout
             //}
             //this.pursuit = Functions.CreatePursuit();
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
-            Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have wanted criminal arrest warrant, criminal is wanted for " + felony_s + ".");
+            Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information where criminal wanted for " + felony_s + " works. Go there and arrest him.");
             Game.DisplaySubtitle("Go to marked area and arrest wanted criminal.", 9000);
             myPed.Tasks.Wander();
             
