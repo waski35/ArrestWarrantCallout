@@ -78,7 +78,7 @@ namespace ArrestWarrantCallout
                 Functions.RegisterCallout(typeof(PrisonEscape));
                 Functions.RegisterCallout(typeof(ArrestatWorkplaceCallout));
                 
-                Game.DisplayNotification("~b~Arrest Warrant Callout~w~ " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + "~g~loaded !");
+                Game.DisplayNotification("~b~Arrest Warrant Callout~w~ " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + "~g~ loaded !");
             }
        }
         static void ReadSettings()
