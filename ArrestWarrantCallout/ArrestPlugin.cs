@@ -36,7 +36,34 @@ namespace ArrestWarrantCallout
             {
                 Game.LogTrivial(plug_ver + " : Developer mode activated !");
             }
+           /* while (true)
+            {
+                if (option_dev_mode == 35)
+                {
+                    if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad0))
+                    {
+                        Functions.StopCurrentCallout();
+                        Functions.StartCallout("ArrestCallout");
+                    }
+                    else if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad1))
+                    {
+                        Functions.StopCurrentCallout();
+                        Functions.StartCallout("PrisonEscape");
+                    }
+                    else if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad2))
+                    {
+                        Functions.StopCurrentCallout();
+                        Functions.StartCallout("ArrestAtWorkplaceCallout");
+                    }
+                    else
+                    {
+                        //do nothing
+                    }
+                }
 
+                GameFiber.Yield();
+            }
+            */
         }
 
         /// <summary>
@@ -54,7 +81,9 @@ namespace ArrestWarrantCallout
         {
             //Event handler for detecting if the player goes on duty
             Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
+            
             Game.LogTrivial("Arrest Warrant Callout " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + "loaded!");
+            ReadSettings();
         }
 
         /// <summary>
@@ -69,7 +98,7 @@ namespace ArrestWarrantCallout
                 Functions.RegisterCallout(typeof(ArrestCallout));
                 Functions.RegisterCallout(typeof(PrisonEscape));
                 Functions.RegisterCallout(typeof(ArrestatWorkplaceCallout));
-                ReadSettings();
+                
                 Game.DisplayNotification("~b~Arrest Warrant Callout~w~ " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + "~g~loaded !");
             }
        }
