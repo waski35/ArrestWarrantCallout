@@ -262,10 +262,11 @@ namespace ArrestWarrantCallout
                         if (!info_displayed)
                         {
                             Game.DisplaySubtitle("Talk to suspect ( ~b~ T key ~w~ ), ask for his ID, inform about arrest warrant, and perform arrest.", 9000);
+                            info_displayed = true;
                         }
                         if (dialog_phase == 1)
                         {
-                            Game.DisplaySubtitle("Get suspect's ID as usual (using built-in LSPDFR ~b~ E key ~w~) and arrest him if he/she is wanted.", 5000);
+                            Game.DisplaySubtitle("Get suspect's ID as usual (using built-in LSPDFR ~b~ E key ~w~) and arrest him if he/she is wanted.", 3000);
 
                         }
                         if (Game.IsKeyDown(System.Windows.Forms.Keys.T))
@@ -273,7 +274,7 @@ namespace ArrestWarrantCallout
                             if (dialog_phase == 0)
                             {
                                 Persona crim_presona = Functions.GetPersonaForPed(myPed);
-                                Game.DisplaySubtitle("Hello, My name is " + ArrestWarrantClass.option_player_name + " from Los Santos Police Department. I'm looking for " + crim_presona.Forename + " " + crim_presona.Surname + ". There's Arrest Warrant placed at this person.", 3000);
+                                Game.DisplaySubtitle("Hello, My name is " + ArrestWarrantClass.option_player_name + " from Los Santos Police Department. I'm looking for " + crim_presona.Forename + " " + crim_presona.Surname + ".", 3000);
                                 myPed.Face(Game.LocalPlayer.Character.Position);
                                 Game.DisplaySubtitle("~y~" + crim_presona.Forename + ": ~w~ Well... that's me.... I think....", 2000);
                                 myPed.Tasks.StandStill(2000);
@@ -300,12 +301,12 @@ namespace ArrestWarrantCallout
                     }
                     if (dialog_phase == 3)
                     {
-                        Game.DisplaySubtitle("YOU : You have the right to remain silent. ... Yeah... You know this formula aren't You ? I just don't know how many times I have been saying this.... And now GET IN the police car ... with me", 5000);
+                        Game.DisplaySubtitle("YOU : You have the right to remain silent. ... Yeah... You know this formula aren't You ?", 3000);
                         dialog_phase = 5;
                     }
                     if (dialog_phase == 4)
                     {
-                        Game.DisplaySubtitle("YOU : Another one... What the hell now I should to write in report?!", 5000);
+                        Game.DisplaySubtitle("YOU : Another one... What the hell now I should to write in report?!", 3000);
                         dialog_phase = 5;
                     }
 
