@@ -7,6 +7,7 @@ using System.Reflection;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System.IO;
+using System.Threading;
 
 namespace ArrestWarrantCallout
 {
@@ -36,34 +37,10 @@ namespace ArrestWarrantCallout
             {
                 Game.LogTrivial(plug_ver + " : Developer mode activated !");
             }
-           /* while (true)
-            {
-                if (option_dev_mode == 35)
-                {
-                    if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad0))
-                    {
-                        Functions.StopCurrentCallout();
-                        Functions.StartCallout("ArrestCallout");
-                    }
-                    else if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad1))
-                    {
-                        Functions.StopCurrentCallout();
-                        Functions.StartCallout("PrisonEscape");
-                    }
-                    else if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad2))
-                    {
-                        Functions.StopCurrentCallout();
-                        Functions.StartCallout("ArrestAtWorkplaceCallout");
-                    }
-                    else
-                    {
-                        //do nothing
-                    }
-                }
-
-                GameFiber.Yield();
-            }
-            */
+            ThreadStart dev_thread = new ThreadStart(ArrestWarrantClass.DevThread);
+            GameFiber dthread = new GameFiber(ArrestWarrantClass.DevThread, "awc_dev_checks_thread");
+            dthread.Start();
+          
         }
 
         /// <summary>
@@ -83,6 +60,7 @@ namespace ArrestWarrantCallout
             Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
             
             Game.LogTrivial("Arrest Warrant Callout " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + "loaded!");
+            
             ReadSettings();
         }
 
@@ -153,6 +131,37 @@ namespace ArrestWarrantCallout
             }
 
         }
+    }
+    public static void DevThread()
+    {
+        while (true)
+           {
+               if (option_dev_mode == 35)
+               {
+                   if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad0))
+                   {
+                       Functions.StopCurrentCallout();
+                       Functions.StartCallout("ArrestCallout");
+                   }
+                   else if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad1))
+                   {
+                       Functions.StopCurrentCallout();
+                       Functions.StartCallout("PrisonEscape");
+                   }
+                   else if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad2))
+                   {
+                       Functions.StopCurrentCallout();
+                       Functions.StartCallout("ArrestAtWorkplaceCallout");
+                   }
+                   else
+                   {
+                       //do nothing
+                   }
+               }
+
+               
+           }
+           
     }
 
     }
