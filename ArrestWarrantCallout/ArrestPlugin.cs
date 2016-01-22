@@ -60,7 +60,7 @@ namespace ArrestWarrantCallout
             //Event handler for detecting if the player goes on duty
             Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
             
-            Game.LogTrivial("Arrest Warrant Callout " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + "loaded!");
+            Game.LogTrivial("Arrest Warrant Callout " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + " loaded!");
             
             ReadSettings();
         }
@@ -118,7 +118,7 @@ namespace ArrestWarrantCallout
                     {
                         index_start = line.IndexOf('=');
                         index_stop = line.Length - line.IndexOf('=');
-                        option_player_name = Convert.ToString(line.Substring(index_start + 1));
+                        option_dev_mode = Convert.ToInt32(line.Substring(index_start + 1));
                         if (option_dev_mode != 35)
                         {
                             option_dev_mode = 0;
