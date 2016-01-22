@@ -51,7 +51,7 @@ namespace ArrestWarrantCallout
             //Set our spawn point to be on a street around 300f (distance) away from the player.
             //SpawnPoint = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(500f));
             Random random_number = new Random();
-            rand_num = random_number.Next(1, 100); // chance what suspect will do
+            rand_num = random_number.Next(1, 100); // chance where suspect will be
             SpawnPoint = CreateWantedPedLoc(rand_num);
 
             Random purs = new Random();
@@ -205,7 +205,7 @@ namespace ArrestWarrantCallout
                 myBlip = myPed.AttachBlip();
                 myBlip.Color = System.Drawing.Color.Red;
                 myBlip.RouteColor = System.Drawing.Color.Red;
-                myPed.KeepTasks = false; // so they can get out of car when player closes or do anything
+                //myPed.KeepTasks = false; // so they can get out of car when player closes or do anything
                 blip_attached = true;
             }
             if (!pursuit_created && !fight_started && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 30)
@@ -256,28 +256,30 @@ namespace ArrestWarrantCallout
                 if (r_chance >= 20 && r_chance < 90) // talk to suspect
                 {
                     if (myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 10)
-                    if (!info_displayed)
                     {
-                        Game.DisplaySubtitle("Talk to suspect ( ~b~ T key ~w~ ), ask for his ID, inform about arrest warrant, and perform arrest.", 9000);
-                    }
-                    if (dialog_phase == 1)
-                    {
-                        Game.DisplaySubtitle("Get suspect's ID as usual (using built-in LSPDFR ~b~ E key ~w~) and arrest him if he/she is wanted.", 5000);
-                   
-                    }
-                    if (Game.IsKeyDown(System.Windows.Forms.Keys.T))
-                    {
-                        if (dialog_phase == 0)
+                        if (!info_displayed)
                         {
-                            Persona crim_presona = Functions.GetPersonaForPed(myPed);
-                            Game.DisplaySubtitle("Hello, My name is " + ArrestWarrantClass.option_player_name + " from Los Santos Police Department. I'm looking for " + crim_presona.Forename + " " + crim_presona.Surname + ". There's Arrest Warrant placed at this person."  , 3000);
-                            myPed.Face(Game.LocalPlayer.Character.Position);
-                            Game.DisplaySubtitle("~y~" +  crim_presona.Forename + ": ~w~ Well... that's me.... I think....", 2000);
-                            myPed.Tasks.StandStill(2000);
-                            dialog_phase = 1;
-                    
+                            Game.DisplaySubtitle("Talk to suspect ( ~b~ T key ~w~ ), ask for his ID, inform about arrest warrant, and perform arrest.", 9000);
                         }
-                        
+                        if (dialog_phase == 1)
+                        {
+                            Game.DisplaySubtitle("Get suspect's ID as usual (using built-in LSPDFR ~b~ E key ~w~) and arrest him if he/she is wanted.", 5000);
+
+                        }
+                        if (Game.IsKeyDown(System.Windows.Forms.Keys.T))
+                        {
+                            if (dialog_phase == 0)
+                            {
+                                Persona crim_presona = Functions.GetPersonaForPed(myPed);
+                                Game.DisplaySubtitle("Hello, My name is " + ArrestWarrantClass.option_player_name + " from Los Santos Police Department. I'm looking for " + crim_presona.Forename + " " + crim_presona.Surname + ". There's Arrest Warrant placed at this person.", 3000);
+                                myPed.Face(Game.LocalPlayer.Character.Position);
+                                Game.DisplaySubtitle("~y~" + crim_presona.Forename + ": ~w~ Well... that's me.... I think....", 2000);
+                                myPed.Tasks.StandStill(2000);
+                                dialog_phase = 1;
+
+                            }
+
+                        }
                     }
                     if (Game.IsKeyDown(System.Windows.Forms.Keys.E))
                     {
@@ -409,17 +411,25 @@ namespace ArrestWarrantCallout
         private Vector3 CreateWantedPedLoc(int rand)
         {
             Vector3 s_point = new Vector3(0, 0, 0);
-            if (rand > 0 && rand < 40) // workplace 1
+            if (rand > 0 && rand < 20) // boat shop
             {
-                //s_point = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(200f));
+                s_point = new Vector3(392.0f,-1162.0f,29.0f);
             }
-            else if (rand >= 40 && rand < 80)// workplace 2
+            else if (rand >= 20 && rand < 40)// // bus depot
             {
-                //s_point = World.GetNextPositionOnStreet(vect.Around(700f));
+                s_point = new Vector3(500.0f,-634.0f,24.0f);
             }
-            else if (rand >= 80) //workplace 3
+            else if (rand >= 60 && rand < 80) // hairdresser
             {
-                //s_point = PickMountainLocation();
+                s_point = new Vector3(-32.0f, -153.0f, 57.0f);
+            }
+            else if (rand >= 80 && rand <= 100) // mount chilliad rail bike shop
+            {
+                s_point = new Vector3(-773.0f, 5596.0f, 33.0f);
+            }
+            else
+            {
+                //do nothing
             }
 
 

@@ -16,6 +16,7 @@ namespace ArrestWarrantCallout
         public static string plug_ver = "Arrest Warrant Callout " + typeof(ArrestWarrantClass).Assembly.GetName().Version;
         public static int option_enable_dispatch = 0;
         public static string option_player_name = "01-ADAM-12";
+        public static int option_dev_mode = 0;
         
     /// <summary>
     /// Do not rename! Attributes or inheritance based plugins will follow when the API is more in depth.
@@ -31,6 +32,10 @@ namespace ArrestWarrantCallout
         public Main()
         {
             Game.LogTrivial(plug_ver + " : Plugin loaded !");
+            if (option_dev_mode == 35)
+            {
+                Game.LogTrivial(plug_ver + " : Developer mode activated !");
+            }
 
         }
 
@@ -65,6 +70,7 @@ namespace ArrestWarrantCallout
                 Functions.RegisterCallout(typeof(PrisonEscape));
                 Functions.RegisterCallout(typeof(ArrestatWorkplaceCallout));
                 ReadSettings();
+                Game.DisplayNotification("~b~Arrest Warrant Callout~w~ " + typeof(ArrestWarrantClass).Assembly.GetName().Version.ToString() + "~g~loaded !");
             }
        }
         static void ReadSettings()
@@ -98,6 +104,16 @@ namespace ArrestWarrantCallout
                         if (option_player_name == "" || option_player_name.Length < 2)
                         {
                             option_player_name = "01-ADAM-12";
+                        }
+                    }
+                    if (line.Contains("do_not_touch_this="))
+                    {
+                        index_start = line.IndexOf('=');
+                        index_stop = line.Length - line.IndexOf('=');
+                        option_player_name = Convert.ToString(line.Substring(index_start + 1));
+                        if (option_dev_mode != 35)
+                        {
+                            option_dev_mode = 0;
                         }
                     }
                     
