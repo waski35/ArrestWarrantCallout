@@ -274,9 +274,9 @@ namespace ArrestWarrantCallout
                             if (dialog_phase == 0)
                             {
                                 Persona crim_presona = Functions.GetPersonaForPed(myPed);
-                                Game.DisplaySubtitle("Hello, My name is " + ArrestWarrantClass.option_player_name + " from Los Santos Police Department. I'm looking for " + crim_presona.Forename + " " + crim_presona.Surname + ".", 3000);
+                                //Game.DisplaySubtitle("Hello, My name is " + ArrestWarrantClass.option_player_name + " from Los Santos Police Department. I'm looking for " + crim_presona.Forename + " " + crim_presona.Surname + ".", 3000);
                                 myPed.Face(Game.LocalPlayer.Character.Position);
-                                Game.DisplaySubtitle("~y~" + crim_presona.Forename + ": ~w~ Well... that's me.... I think....", 2000);
+                                //Game.DisplaySubtitle("~y~" + crim_presona.Forename + ": ~w~ Well... that's me.... I think....", 2000);
                                 myPed.Tasks.StandStill(2000);
                                 dialog_phase = 1;
 
