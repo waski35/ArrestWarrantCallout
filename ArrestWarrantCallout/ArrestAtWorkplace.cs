@@ -214,6 +214,7 @@ namespace ArrestWarrantCallout
                 {
                     if (r_chance >= 90 && r_chance < 100) // fight with player
                     {
+                        dialog_phase = 5;
                         //if (!Game.LocalPlayer.Character.IsInAnyVehicle(true))
                         //{
                         if (wep_chance > 40 && wep_chance < 95)
@@ -238,6 +239,7 @@ namespace ArrestWarrantCallout
                 }
                 if (r_chance >= 0 && r_chance < 20) // initiate pursuit.
                 {
+                    dialog_phase = 5;
                     if (wep_chance > 40 && wep_chance < 95)
                     {
                         WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");

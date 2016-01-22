@@ -18,6 +18,7 @@ namespace ArrestWarrantCallout
         public static int option_enable_dispatch = 0;
         public static string option_player_name = "01-ADAM-12";
         public static int option_dev_mode = 0;
+        public static GameFiber dthread;
         
     /// <summary>
     /// Do not rename! Attributes or inheritance based plugins will follow when the API is more in depth.
@@ -38,7 +39,7 @@ namespace ArrestWarrantCallout
                 Game.LogTrivial(plug_ver + " : Developer mode activated !");
             }
             ThreadStart dev_thread = new ThreadStart(ArrestWarrantClass.DevThread);
-            GameFiber dthread = new GameFiber(ArrestWarrantClass.DevThread, "awc_dev_checks_thread");
+            dthread = new GameFiber(ArrestWarrantClass.DevThread, "awc_dev_checks_thread");
             dthread.Start();
           
         }
@@ -158,8 +159,8 @@ namespace ArrestWarrantCallout
                        //do nothing
                    }
                }
-
-               
+               GameFiber.Yield();
+              
            }
            
     }
