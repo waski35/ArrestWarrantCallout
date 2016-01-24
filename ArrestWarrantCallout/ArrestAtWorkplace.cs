@@ -143,7 +143,8 @@ namespace ArrestWarrantCallout
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
             Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information where wanted criminal works. Go there and arrest him.");
             Game.DisplaySubtitle("Go to marked area and arrest wanted criminal.", 9000);
-            myPed.Tasks.Wander();
+            myPed.Tasks.StandStill(1000);
+            
             
             if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
@@ -207,6 +208,7 @@ namespace ArrestWarrantCallout
                 myBlip.RouteColor = System.Drawing.Color.Red;
                 //myPed.KeepTasks = false; // so they can get out of car when player closes or do anything
                 blip_attached = true;
+                myPed.Tasks.Wander();
             }
             if (!pursuit_created && !fight_started && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 30)
             {
