@@ -181,7 +181,7 @@ namespace ArrestWarrantCallout
             }*/
             if (ArrestWarrantClass.option_enable_dispatch > 0)
             {
-                if (from_pos.DistanceTo(myPed.Position) > 700f)
+                if (from_pos.DistanceTo(myPed.Position) > 80f)
                 {
                     if (myBlipArea.Exists())
                     {
@@ -319,53 +319,51 @@ namespace ArrestWarrantCallout
             //A simple check, if our pursuit has ended we end the callout
             if (myPed.IsValid())
             {
-                if (dialog_phase == 5)
+                if (myPed.IsCuffed)
                 {
-                    if (myPed.IsCuffed)
+                    if (!got_arrested_notf)
                     {
-                        if (!got_arrested_notf)
+                        /*if (r_chance >= 0 && r_chance < 10)
                         {
-                            /*if (r_chance >= 0 && r_chance < 10)
+                            if (!Functions.IsPursuitStillRunning(pursuit))
                             {
-                                if (!Functions.IsPursuitStillRunning(pursuit))
-                                {
-                                    Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
-                                    Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                                    got_arrested_notf = true;
-                                }
+                                Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
+                                Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                                got_arrested_notf = true;
                             }
-                            else
-                            {*/
-                            Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                            Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
-                            got_arrested_notf = true;
-                            //}
                         }
-
+                        else
+                        {*/
+                        Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
+                        Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        got_arrested_notf = true;
+                        //}
                     }
-                    if (myPed.IsDead)
-                    {
-                        if (!got_arrested_notf)
-                        {
-                            /*if (r_chance >= 0 && r_chance < 10)
-                            {
-                                if (!Functions.IsPursuitStillRunning(pursuit))
-                                {
-                                    Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
-                                    Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                                    got_arrested_notf = true;
-                                }
-                            }
-                            else
-                            {*/
-                            Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                            Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
-                            got_arrested_notf = true;
-                            //}
-                        }
 
-                    }
                 }
+                if (myPed.IsDead)
+                {
+                    if (!got_arrested_notf)
+                    {
+                        /*if (r_chance >= 0 && r_chance < 10)
+                        {
+                            if (!Functions.IsPursuitStillRunning(pursuit))
+                            {
+                                Game.DisplayNotification("1-ADAM-12 : To Control, Suspect is in custody.");
+                                Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                                got_arrested_notf = true;
+                            }
+                        }
+                        else
+                        {*/
+                        Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
+                        Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        got_arrested_notf = true;
+                        //}
+                    }
+
+                }
+                
                 /*else if ((myPed.Position.DistanceTo(airport_pos)) < 3f || (myPed.Position.DistanceTo(seaport_pos) < 3f))
                 {
                     Game.DisplayNotification("Control : Suspect has escaped.");
@@ -386,7 +384,7 @@ namespace ArrestWarrantCallout
             }
             if (myPed.IsValid())
             {
-                if (got_arrested_notf == true && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) > 100f)
+                if (got_arrested_notf == true && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) > 80f)
                 {
                     this.End();
                 }
