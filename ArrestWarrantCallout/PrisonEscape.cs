@@ -167,8 +167,8 @@ namespace ArrestWarrantCallout
             if (rand_num > 0 && rand_num < 50) // waiting at home
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to airport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
-
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION", airport_pos);
+                Functions.PlayScannerAudio("RESPOND_CODE_3");
                 myPed.Tasks.DriveToPosition(airport_pos, 30, VehicleDrivingFlags.FollowTraffic);
 
                 
@@ -176,8 +176,8 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 50 && rand_num < 101) // fleeing to seaport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to seaport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", seaport_pos);
-
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION", seaport_pos);
+                Functions.PlayScannerAudio("RESPOND_CODE_3");
                 myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
                 
 
@@ -186,10 +186,14 @@ namespace ArrestWarrantCallout
             if (wep_chance > 20 && wep_chance < 75) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are in posession of small firearms. Be advised.");
+                Functions.PlayScannerAudio("SUSPECT_IS");
+                Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 75)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are heavily armed and dangerous. Be advised.");
+                Functions.PlayScannerAudio("SUSPECT_IS");
+                Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
@@ -265,6 +269,7 @@ namespace ArrestWarrantCallout
                     //myBlip2.RouteColor = System.Drawing.Color.Red;
                     myPed2.KeepTasks = false;
                 }*/
+                Functions.PlayScannerAudio("SUSPECT_LOCATED_ENGAGE");
                 if (!pursuit_created)
                 {
                     pursuit = Functions.CreatePursuit();
@@ -388,7 +393,9 @@ namespace ArrestWarrantCallout
                     {
 
                         Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : To Control, Suspect is in custody.");
+                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY");
                         Game.DisplayNotification("Control : Acknowledged. ");
+                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                         got_arrested_notf = true;
                     }
 
@@ -399,7 +406,9 @@ namespace ArrestWarrantCallout
                     {
 
                         Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : To Control, Suspect is in custody.");
+                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY");
                         Game.DisplayNotification("Control : Acknowledged. ");
+                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                         got_arrested_notf = true;
                     }
 
@@ -416,7 +425,9 @@ namespace ArrestWarrantCallout
                 else if (timeout_is_on)
                 {
                     Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : We have lost track of suspect.");
+
                     Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                    Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                     myPed.Dismiss();
                     myPed2.Dismiss();
                     this.End();

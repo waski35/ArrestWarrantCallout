@@ -184,13 +184,15 @@ namespace ArrestWarrantCallout
             if (rand_num > 0 && rand_num < 10) // waiting at home
             {
                 Game.DisplayNotification("~b~ Control to 1-ADAM-12 ~w~ : We have information that suspect is unaware about Your arrest warrant.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION" , SpawnPoint);
+                Functions.PlayScannerAudio("RESPOND_CODE_2");
                 myPed.Tasks.Wander();
             }
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is fleeing to airport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION", airport_pos);
+                Functions.PlayScannerAudio("RESPOND_CODE_3");
                 if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(airport_pos, 30, VehicleDrivingFlags.FollowTraffic);
@@ -205,7 +207,8 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 40  && rand_num < 80) // fleeing to seaport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is fleeing to seaport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03",seaport_pos);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION",seaport_pos);
+                Functions.PlayScannerAudio("RESPOND_CODE_3");
                 if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
@@ -221,18 +224,22 @@ namespace ArrestWarrantCallout
             else // hiding in mouintains
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is ~y~ hiding in marked area.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
-                
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", SpawnPoint);
+                Functions.PlayScannerAudio("RESPOND_CODE_2");
                 myPed.Tasks.Wander();
           
             }
             if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control : ~w~ Suspect is in posession of ~y~ small firearms ~w~ . Be advised.");
+                Functions.PlayScannerAudio("SUSPECT_IS");
+                Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 95)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspect is ~r~ heavily armed ~w~ and dangerous. Be advised.");
+                Functions.PlayScannerAudio("SUSPECT_IS");
+                Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
@@ -289,6 +296,7 @@ namespace ArrestWarrantCallout
                 myBlip.RouteColor = System.Drawing.Color.Red;
                 myPed.KeepTasks = false; // so they can get out of car when player closes or do anything
                 blip_attached = true;
+                Functions.PlayScannerAudio("SUSPECT_LOCATED_ENGAGE");
             }
             if (!pursuit_created && !fight_started && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
             {
@@ -422,8 +430,10 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                            Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
-                            got_arrested_notf = true;
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
+                        Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        got_arrested_notf = true;
                         //}
                     }
 
@@ -444,7 +454,9 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                            Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
+                        Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                             got_arrested_notf = true;
                         //}
                     }
