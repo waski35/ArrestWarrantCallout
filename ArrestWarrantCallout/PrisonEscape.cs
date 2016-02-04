@@ -27,6 +27,7 @@ namespace ArrestWarrantCallout
         private int rand_num = 0;
         private Vector3 airport_pos;
         private Vector3 seaport_pos;
+        private Vector3 random_escape_pos;
         private bool timeout_is_on = false;
         private int r_chance = 0;
         private bool fight_started = false;
@@ -61,9 +62,9 @@ namespace ArrestWarrantCallout
             Random wep = new Random();
             wep_chance = wep.Next(1, 100);
 
-            
 
 
+            random_escape_pos = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(900f));
             airport_pos = new Vector3(Convert.ToSingle(-1029.346), Convert.ToSingle(-2499.977), Convert.ToSingle(19.704)); // set airport pos
             seaport_pos = new Vector3(Convert.ToSingle(1181.485), Convert.ToSingle(-3099.899), Convert.ToSingle(5.43373)); // set seaport pos
 
@@ -164,7 +165,7 @@ namespace ArrestWarrantCallout
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
             Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + "  ~w~ : We have wanted criminal escaping from county prison");
             Game.DisplaySubtitle("Go to marked area and arrest wanted criminals.", 9000);
-            if (rand_num > 0 && rand_num < 50) // waiting at home
+            if (rand_num >= 0 && rand_num < 20) // waiting at home
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to airport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION", airport_pos);
@@ -173,7 +174,7 @@ namespace ArrestWarrantCallout
 
                 
             }
-            else if (rand_num >= 50 && rand_num < 101) // fleeing to seaport
+            else if (rand_num >= 20 && rand_num < 40) // fleeing to seaport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to seaport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION", seaport_pos);
@@ -181,6 +182,12 @@ namespace ArrestWarrantCallout
                 myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
                 
 
+            }
+            else
+            {
+                Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to unknown location.");
+                Functions.PlayScannerAudio("RESPOND_CODE_3");
+                myPed.Tasks.DriveToPosition(random_escape_pos, 30, VehicleDrivingFlags.FollowTraffic);
             }
             
             if (wep_chance > 20 && wep_chance < 75) // chance to get intel about weapons is slightly lower than real possibility
@@ -339,7 +346,7 @@ namespace ArrestWarrantCallout
             }*/
             if (!player_interacting || !blip_attached)
             {
-                if (rand_num > 0 && rand_num < 50)
+                if (rand_num >= 0 && rand_num < 20)
                 {
                     if (myPed.Position.DistanceTo(airport_pos) < 50)
                     {
@@ -361,7 +368,7 @@ namespace ArrestWarrantCallout
                         }
                     }
                 }
-                if (rand_num >= 50 && rand_num < 101)
+                if (rand_num >= 20 && rand_num < 40)
                 {
                     if (myPed.Position.DistanceTo(seaport_pos) < 50)
                     {
@@ -370,6 +377,28 @@ namespace ArrestWarrantCallout
                             myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             myPed2.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             
+                            myPed.Tasks.Wander();
+                            myPed2.Tasks.Wander();
+                            if (myBlipArea.Exists())
+                            {
+                                myBlipArea.Position = myPed.Position;
+                                from_pos = myPed.Position;
+
+                                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
+                            }
+
+                        }
+                    }
+                }
+                if (rand_num >= 40 && rand_num < 101)
+                {
+                    if (myPed.Position.DistanceTo(random_escape_pos) < 50)
+                    {
+                        if (myPed.IsInAnyVehicle(true) && !player_interacting)
+                        {
+                            myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                            myPed2.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+
                             myPed.Tasks.Wander();
                             myPed2.Tasks.Wander();
                             if (myBlipArea.Exists())
