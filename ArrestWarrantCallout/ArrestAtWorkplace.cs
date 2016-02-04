@@ -79,7 +79,7 @@ namespace ArrestWarrantCallout
             }
            
             //Create our ped in the world
-            myPed = new Ped(getVarPedModel(), SpawnPoint, 0f);
+            myPed = new Ped(CommonFunctions.getVarPedModel(), SpawnPoint, 0f);
             myPed.KeepTasks = true;
             myPed.MakePersistent();
             DateTime birthday = new DateTime(1971, 01, 23);
@@ -227,12 +227,12 @@ namespace ArrestWarrantCallout
                         //{
                         if (wep_chance > 40 && wep_chance < 95)
                         {
-                            WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                            WeaponAsset w_ass = new WeaponAsset(bronie.get_pistol());
                             myPed.Inventory.GiveNewWeapon(w_ass, 25, true);
                         }
                         else if (wep_chance >= 95)
                         {
-                            WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                            WeaponAsset w_ass = new WeaponAsset(bronie.get_rifle());
                             myPed.Inventory.GiveNewWeapon(w_ass, 100, true);
                             myPed.Armor = 50;
                         }
@@ -250,12 +250,12 @@ namespace ArrestWarrantCallout
                     dialog_phase = 5;
                     if (wep_chance > 40 && wep_chance < 95)
                     {
-                        WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                        WeaponAsset w_ass = new WeaponAsset(bronie.get_pistol());
                         myPed.Inventory.GiveNewWeapon(w_ass, 25, true);
                     }
                     else if (wep_chance >= 95)
                     {
-                        WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                        WeaponAsset w_ass = new WeaponAsset(bronie.get_rifle());
                         myPed.Inventory.GiveNewWeapon(w_ass, 100, true);
                         myPed.Armor = 50;
                     }
@@ -449,49 +449,7 @@ namespace ArrestWarrantCallout
             return s_point;
         }
         
-        private String getVarPedModel()
-        {
-            Random ped_var = new Random();
-            int ped_var_mod = ped_var.Next(1, 100);
-            String ped_model = "a_m_y_mexthug_01";
-            if (ped_var_mod > 0 && ped_var_mod < 10)
-            {
-                ped_model = "a_m_y_mexthug_01";
-            }
-            else if (ped_var_mod >= 10 && ped_var_mod < 20)
-            {
-                ped_model = "a_f_y_hipster_01";
-            }
-            else if (ped_var_mod >= 20 && ped_var_mod < 30)
-            {
-                ped_model = "a_f_y_runner_01";
-            }
-            else if (ped_var_mod >= 30 && ped_var_mod < 40)
-            {
-                ped_model = "a_f_y_topless_01";
-            }
-            else if (ped_var_mod >= 40 && ped_var_mod < 50)
-            {
-                ped_model = "a_m_y_business_03";
-            }
-            else if (ped_var_mod >= 50 && ped_var_mod < 60)
-            {
-                ped_model = "a_m_y_cyclist_01";
-            }
-            else if (ped_var_mod >= 60 && ped_var_mod < 70)
-            {
-                ped_model = "a_m_y_gay_01";
-            }
-            else if (ped_var_mod >= 70 && ped_var_mod < 80)
-            {
-                ped_model = "a_m_y_hippy_01";
-            }
-            else if (ped_var_mod >= 80 && ped_var_mod < 101)
-            {
-                ped_model = "a_m_y_skater_01";
-            }
-            return ped_model;
-        }
+        
 
         
 

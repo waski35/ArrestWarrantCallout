@@ -87,7 +87,7 @@ namespace ArrestWarrantCallout
             seaport_pos = new Vector3(Convert.ToSingle(1181.485), Convert.ToSingle(-3099.899), Convert.ToSingle(5.43373)); // set seaport pos
 
             //Create our ped in the world
-            myPed = new Ped(getVarPedModel(), SpawnPoint, 0f);
+            myPed = new Ped(CommonFunctions.getVarPedModel(), SpawnPoint, 0f);
             myPed.KeepTasks = true;
             myPed.MakePersistent();
             DateTime birthday = new DateTime(1971,01,23);
@@ -111,7 +111,7 @@ namespace ArrestWarrantCallout
             //Create the vehicle for our ped
             if (weh_chance > 50 && weh_chance < 101)
             {
-                myVehicle = new Vehicle(getVarVehModel(), SpawnPoint);
+                myVehicle = new Vehicle(CommonFunctions.getVarVehModel(), SpawnPoint);
                 if (!myVehicle.Exists()) return false;
             }
            
@@ -308,12 +308,12 @@ namespace ArrestWarrantCallout
                             //{
                                 if (wep_chance > 40 && wep_chance < 95)
                                 {
-                                    WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                                    WeaponAsset w_ass = new WeaponAsset(bronie.get_pistol());
                                     myPed.Inventory.GiveNewWeapon(w_ass, 25, true);
                                 }
                                 else if (wep_chance >= 95)
                                 {
-                                    WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                                    WeaponAsset w_ass = new WeaponAsset(bronie.get_rifle());
                                     myPed.Inventory.GiveNewWeapon(w_ass, 100, true);
                                     myPed.Armor = 50;
                                 }
@@ -330,12 +330,12 @@ namespace ArrestWarrantCallout
                     {
                         if (wep_chance > 40 && wep_chance < 95)
                         {
-                            WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                            WeaponAsset w_ass = new WeaponAsset(bronie.get_pistol());
                             myPed.Inventory.GiveNewWeapon(w_ass, 25, true);
                         }
                         else if (wep_chance >= 95)
                         {
-                            WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                            WeaponAsset w_ass = new WeaponAsset(bronie.get_rifle());
                             myPed.Inventory.GiveNewWeapon(w_ass, 100, true);
                             myPed.Armor = 50;
                         }
@@ -532,7 +532,7 @@ namespace ArrestWarrantCallout
         {
             Vector3 ret = new Vector3(0, 0, 0);
             Random random_m = new Random();
-            int rand_moun = random_m.Next(1, 5);
+            int rand_moun = random_m.Next(0, 6);
             switch (rand_moun)
             {
                 case 1: ret.X = -1019.682f;
@@ -562,77 +562,9 @@ namespace ArrestWarrantCallout
             }
             return ret;
         }
-        private String getVarPedModel ()
-        {
-            Random ped_var = new Random();
-            int ped_var_mod = ped_var.Next(1, 100);
-            String ped_model = "a_m_y_mexthug_01";
-            if (ped_var_mod > 0 && ped_var_mod < 10)
-            {
-                ped_model = "a_m_y_mexthug_01";
-            }
-            else if (ped_var_mod >= 10 && ped_var_mod < 20)
-            {
-                ped_model = "a_f_y_hipster_01";
-            }
-            else if (ped_var_mod >= 20 && ped_var_mod < 30)
-            {
-                ped_model = "a_f_y_runner_01";
-            }
-            else if (ped_var_mod >= 30 && ped_var_mod < 40)
-            {
-                ped_model = "a_f_y_topless_01";
-            }
-            else if (ped_var_mod >= 40 && ped_var_mod < 50)
-            {
-                ped_model = "a_m_y_business_03";
-            }
-            else if (ped_var_mod >= 50 && ped_var_mod < 60)
-            {
-                ped_model = "a_m_y_cyclist_01";
-            }
-            else if (ped_var_mod >= 60 && ped_var_mod < 70)
-            {
-                ped_model = "a_m_y_gay_01";
-            }
-            else if (ped_var_mod >= 70 && ped_var_mod < 80)
-            {
-                ped_model = "a_m_y_hippy_01";
-            }
-            else if (ped_var_mod >= 80 && ped_var_mod < 101)
-            {
-                ped_model = "a_m_y_skater_01";
-            }
-            return ped_model;
-        }
+        
 
-        private String getVarVehModel()
-        {
-            String veh_model = "DUKES2";
-            Random veh_var = new Random();
-            int veh_var_mod = veh_var.Next(1, 100);
-            if (veh_var_mod > 0 && veh_var_mod < 20)
-            {
-                veh_model = "DUKES2";
-            }
-            else if (veh_var_mod >= 20 && veh_var_mod < 40)
-            {
-                veh_model = "BLISTA";
-            }
-            else if (veh_var_mod >= 40 && veh_var_mod < 60)
-            {
-                veh_model = "BUFFALO";
-            }
-            else if (veh_var_mod >= 60 && veh_var_mod < 80)
-            {
-                veh_model = "BURRITO3";
-            }
-            else if (veh_var_mod >= 80 && veh_var_mod < 101)
-            {
-                veh_model = "DILETTANTE";
-            }
-            return veh_model;
-        }
+        
 
     }
 }
