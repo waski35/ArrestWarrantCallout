@@ -168,8 +168,8 @@ namespace ArrestWarrantCallout
             if (rand_num >= 0 && rand_num < 20) // fleeing to airport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to airport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION", airport_pos);
-                Functions.PlayScannerAudio("RESPOND_CODE_3");
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION RESPOND_CODE_3", airport_pos);
+                //Functions.PlayScannerAudio("RESPOND_CODE_3");
                 myPed.Tasks.DriveToPosition(airport_pos, 30, VehicleDrivingFlags.FollowTraffic);
 
                 
@@ -177,8 +177,8 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 20 && rand_num < 40) // fleeing to seaport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to seaport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION", seaport_pos);
-                Functions.PlayScannerAudio("RESPOND_CODE_3");
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION RESPOND_CODE_3", seaport_pos);
+                //Functions.PlayScannerAudio("RESPOND_CODE_3");
                 myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
                 
 

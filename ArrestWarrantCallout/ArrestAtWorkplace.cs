@@ -106,7 +106,7 @@ namespace ArrestWarrantCallout
             this.CalloutPosition = SpawnPoint;
 
             //Play the police scanner audio for this callout (available as of the 0.2a API)
-            Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_RESIST_ARREST IN_OR_ON_POSITION OUTRO OFFICER_INTRO RESPOND_CODE_2", SpawnPoint);
+            Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_RESIST_ARREST IN_OR_ON_POSITION RESPOND_CODE_2", SpawnPoint);
             //Functions.PlayScannerAudio("RESPOND_CODE_2");
 
             return base.OnBeforeCalloutDisplayed();
@@ -344,7 +344,7 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("OFFICER_INTRO 10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                         //Functions.PlayScannerAudio("ADAM_4_COPY");
                         //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
@@ -369,7 +369,7 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("OFFICER_INTRO 10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                         //Functions.PlayScannerAudio("ADAM_4_COPY");
                         //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
