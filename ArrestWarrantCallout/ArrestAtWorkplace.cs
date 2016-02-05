@@ -106,8 +106,8 @@ namespace ArrestWarrantCallout
             this.CalloutPosition = SpawnPoint;
 
             //Play the police scanner audio for this callout (available as of the 0.2a API)
-            Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_RESIST_ARREST IN_OR_ON_POSITION", SpawnPoint);
-            Functions.PlayScannerAudio("RESPOND_CODE_2");
+            Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_RESIST_ARREST IN_OR_ON_POSITION OUTRO OFFICER_INTRO RESPOND_CODE_2", SpawnPoint);
+            //Functions.PlayScannerAudio("RESPOND_CODE_2");
 
             return base.OnBeforeCalloutDisplayed();
         }
@@ -151,14 +151,14 @@ namespace ArrestWarrantCallout
             if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control : ~w~ Suspect is in posession of ~y~ small firearms ~w~ . Be advised.");
-                Functions.PlayScannerAudio("SUSPECT_IS");
-                Functions.PlayScannerAudio("SMALL_ARMS");
+                Functions.PlayScannerAudio("SUSPECT_IS SMALL_ARMS");
+                //Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 95)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspect is ~r~ heavily armed ~w~ and dangerous. Be advised.");
-                Functions.PlayScannerAudio("SUSPECT_IS");
-                Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
+                Functions.PlayScannerAudio("SUSPECT_IS HEAVILY_ARMED_DANGEROUS");
+                //Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
@@ -344,10 +344,10 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY ADAM_4_COPY CODE_4_ADAM_NO_ADDITIONAL");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
-                        Functions.PlayScannerAudio("ADAM_4_COPY");
-                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                         got_arrested_notf = true;
                         //}
                     }
@@ -369,10 +369,10 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY ADAM_4_COPY CODE_4_ADAM_NO_ADDITIONAL");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
-                        Functions.PlayScannerAudio("ADAM_4_COPY");
-                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                         got_arrested_notf = true;
                         //}
                     }

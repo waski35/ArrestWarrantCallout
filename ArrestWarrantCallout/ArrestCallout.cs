@@ -184,8 +184,8 @@ namespace ArrestWarrantCallout
             if (rand_num > 0 && rand_num < 10) // waiting at home
             {
                 Game.DisplayNotification("~b~ Control to 1-ADAM-12 ~w~ : We have information that suspect is unaware about Your arrest warrant.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION" , SpawnPoint);
-                Functions.PlayScannerAudio("RESPOND_CODE_2");
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION OUTRO OFFICER_INTRO RESPOND_CODE_2", SpawnPoint);
+                //Functions.PlayScannerAudio("RESPOND_CODE_2");
                 myPed.Tasks.Wander();
             }
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
