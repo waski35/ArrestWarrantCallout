@@ -193,14 +193,14 @@ namespace ArrestWarrantCallout
             if (wep_chance > 20 && wep_chance < 75) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are in posession of small firearms. Be advised.");
-                Functions.PlayScannerAudio("SUSPECT_IS");
-                Functions.PlayScannerAudio("SMALL_ARMS");
+                Functions.PlayScannerAudio("SUSPECT_IS SMALL_ARMS");
+                //Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 75)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are heavily armed and dangerous. Be advised.");
-                Functions.PlayScannerAudio("SUSPECT_IS");
-                Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
+                Functions.PlayScannerAudio("SUSPECT_IS HEAVILY_ARMED_DANGEROUS");
+                //Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
@@ -276,7 +276,7 @@ namespace ArrestWarrantCallout
                     //myBlip2.RouteColor = System.Drawing.Color.Red;
                     myPed2.KeepTasks = false;
                 }*/
-                Functions.PlayScannerAudio("SUSPECT_LOCATED_ENGAGE");
+                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_LOCATED_ENGAGE");
                 if (!pursuit_created)
                 {
                     pursuit = Functions.CreatePursuit();
@@ -422,10 +422,10 @@ namespace ArrestWarrantCallout
                     {
 
                         Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY");
+                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO");
                         Game.DisplayNotification("Control : Acknowledged. ");
-                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
-                        Functions.PlayScannerAudio("ADAM_4_COPY");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
                         got_arrested_notf = true;
                     }
 
@@ -436,10 +436,10 @@ namespace ArrestWarrantCallout
                     {
 
                         Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY");
+                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO");
                         Game.DisplayNotification("Control : Acknowledged. ");
-                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
-                        Functions.PlayScannerAudio("ADAM_4_COPY");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
                         got_arrested_notf = true;
                     }
 
@@ -458,8 +458,8 @@ namespace ArrestWarrantCallout
                     Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : We have lost track of suspect.");
 
                     Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
-                    Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
-                    Functions.PlayScannerAudio("ADAM_4_COPY");
+                    Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO");
+                    //Functions.PlayScannerAudio("ADAM_4_COPY");
                     myPed.Dismiss();
                     myPed2.Dismiss();
                     this.End();

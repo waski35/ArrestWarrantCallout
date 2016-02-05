@@ -232,14 +232,14 @@ namespace ArrestWarrantCallout
             if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control : ~w~ Suspect is in posession of ~y~ small firearms ~w~ . Be advised.");
-                Functions.PlayScannerAudio("SUSPECT_IS");
-                Functions.PlayScannerAudio("SMALL_ARMS");
+                Functions.PlayScannerAudio("SUSPECT_IS SMALL_ARMS");
+                //Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 95)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspect is ~r~ heavily armed ~w~ and dangerous. Be advised.");
-                Functions.PlayScannerAudio("SUSPECT_IS");
-                Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
+                Functions.PlayScannerAudio("SUSPECT_IS HEAVILY_ARMED_DANGEROUS");
+                //Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
@@ -296,7 +296,7 @@ namespace ArrestWarrantCallout
                 myBlip.RouteColor = System.Drawing.Color.Red;
                 myPed.KeepTasks = false; // so they can get out of car when player closes or do anything
                 blip_attached = true;
-                Functions.PlayScannerAudio("SUSPECT_LOCATED_ENGAGE");
+                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_LOCATED_ENGAGE");
             }
             if (!pursuit_created && !fight_started && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
             {
@@ -430,10 +430,10 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
-                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
-                        Functions.PlayScannerAudio("ADAM_4_COPY");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
                         got_arrested_notf = true;
                         //}
                     }
@@ -455,10 +455,10 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
-                        Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
-                        Functions.PlayScannerAudio("ADAM_4_COPY");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
                             got_arrested_notf = true;
                         //}
                     }
@@ -476,6 +476,7 @@ namespace ArrestWarrantCallout
                 else if (timeout_is_on)
                 {
                     Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : We have lost track of suspect.");
+                    Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
                     Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                     myPed.Dismiss();
                     this.End();
