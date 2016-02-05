@@ -107,6 +107,7 @@ namespace ArrestWarrantCallout
 
             //Play the police scanner audio for this callout (available as of the 0.2a API)
             Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_RESIST_ARREST IN_OR_ON_POSITION", SpawnPoint);
+            Functions.PlayScannerAudio("RESPOND_CODE_2");
 
             return base.OnBeforeCalloutDisplayed();
         }
@@ -144,7 +145,7 @@ namespace ArrestWarrantCallout
             Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information where wanted criminal works. Go there and arrest him.");
             Game.DisplaySubtitle("Go to marked area and arrest wanted criminal.", 9000);
             myPed.Tasks.StandStill(1000);
-            Functions.PlayScannerAudio("RESPOND_CODE_2");
+            Functions.PlayScannerAudio("ADAM_4_COPY");
             
             
             if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
@@ -345,6 +346,7 @@ namespace ArrestWarrantCallout
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
                         Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        Functions.PlayScannerAudio("ADAM_4_COPY");
                         Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                         got_arrested_notf = true;
                         //}
@@ -369,6 +371,7 @@ namespace ArrestWarrantCallout
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
                         Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        Functions.PlayScannerAudio("ADAM_4_COPY");
                         Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                         got_arrested_notf = true;
                         //}

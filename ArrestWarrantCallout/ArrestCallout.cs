@@ -433,6 +433,7 @@ namespace ArrestWarrantCallout
                         Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                         Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        Functions.PlayScannerAudio("ADAM_4_COPY");
                         got_arrested_notf = true;
                         //}
                     }
@@ -457,6 +458,7 @@ namespace ArrestWarrantCallout
                         Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY");
                         Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                         Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        Functions.PlayScannerAudio("ADAM_4_COPY");
                             got_arrested_notf = true;
                         //}
                     }
