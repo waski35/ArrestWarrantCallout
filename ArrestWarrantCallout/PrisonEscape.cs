@@ -27,6 +27,7 @@ namespace ArrestWarrantCallout
         private int rand_num = 0;
         private Vector3 airport_pos;
         private Vector3 seaport_pos;
+        private Vector3 random_escape_pos;
         private bool timeout_is_on = false;
         private int r_chance = 0;
         private bool fight_started = false;
@@ -61,14 +62,14 @@ namespace ArrestWarrantCallout
             Random wep = new Random();
             wep_chance = wep.Next(1, 100);
 
-            
 
 
+            random_escape_pos = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(900f));
             airport_pos = new Vector3(Convert.ToSingle(-1029.346), Convert.ToSingle(-2499.977), Convert.ToSingle(19.704)); // set airport pos
             seaport_pos = new Vector3(Convert.ToSingle(1181.485), Convert.ToSingle(-3099.899), Convert.ToSingle(5.43373)); // set seaport pos
 
             //Create our ped in the world
-            myPed = new Ped(getVarPedModel(), SpawnPoint, 0f);
+            myPed = new Ped(CommonFunctions.getVarPedModel(), SpawnPoint, 0f);
             myPed.KeepTasks = true;
             myPed.MakePersistent();
             DateTime birthday = new DateTime(1971, 01, 23);
@@ -78,7 +79,7 @@ namespace ArrestWarrantCallout
             Functions.SetPersonaForPed(myPed, crim_persona_new);
 
             //Create our ped in the world
-            myPed2 = new Ped(getVarPedModel(), SpawnPoint, 0f);
+            myPed2 = new Ped(CommonFunctions.getVarPedModel(), SpawnPoint, 0f);
             myPed2.KeepTasks = true;
             myPed2.MakePersistent();
             DateTime birthday2 = new DateTime(1971, 01, 23);
@@ -88,7 +89,7 @@ namespace ArrestWarrantCallout
             Functions.SetPersonaForPed(myPed2, crim_persona_new2);
 
             //Create the vehicle for our ped
-            myVehicle = new Vehicle(getVarVehModel(), SpawnPoint);
+            myVehicle = new Vehicle(CommonFunctions.getVarVehModel(), SpawnPoint);
                 if (!myVehicle.Exists()) return false;
            
 
@@ -164,38 +165,49 @@ namespace ArrestWarrantCallout
             //Functions.AddPedToPursuit(this.pursuit, this.myPed);
             Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + "  ~w~ : We have wanted criminal escaping from county prison");
             Game.DisplaySubtitle("Go to marked area and arrest wanted criminals.", 9000);
-            if (rand_num > 0 && rand_num < 50) // waiting at home
+            if (rand_num >= 0 && rand_num < 20) // fleeing to airport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to airport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
-
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION RESPOND_CODE_3", airport_pos);
+                //Functions.PlayScannerAudio("RESPOND_CODE_3");
                 myPed.Tasks.DriveToPosition(airport_pos, 30, VehicleDrivingFlags.FollowTraffic);
 
                 
             }
-            else if (rand_num >= 50 && rand_num < 101) // fleeing to seaport
+            else if (rand_num >= 20 && rand_num < 40) // fleeing to seaport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to seaport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", seaport_pos);
-
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION RESPOND_CODE_3", seaport_pos);
+                //Functions.PlayScannerAudio("RESPOND_CODE_3");
                 myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
                 
 
+            }
+            else // fleeing to random position
+            {
+                Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to unknown location.");
+                Functions.PlayScannerAudio("OFFICER_INTRO RESPOND_CODE_2");
+                myPed.Tasks.DriveToPosition(random_escape_pos, 30, VehicleDrivingFlags.FollowTraffic);
             }
             
             if (wep_chance > 20 && wep_chance < 75) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are in posession of small firearms. Be advised.");
+                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_IS OUTRO OFFICER_INTRO SMALL_ARMS");
+                //Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 75)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are heavily armed and dangerous. Be advised.");
+                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_IS OUTRO OFFICER_INTRO HEAVILY_ARMED_DANGEROUS");
+                //Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
                 Game.DisplayNotification("~b~ Control ~w~ : We have no intel about possible firearms posession by suspects.");
             }
-            
+            Functions.PlayScannerAudio("OFFICER_INTRO ADAM_4_COPY OUTRO");
+           
             return base.OnCalloutAccepted();
         }
 
@@ -265,6 +277,7 @@ namespace ArrestWarrantCallout
                     //myBlip2.RouteColor = System.Drawing.Color.Red;
                     myPed2.KeepTasks = false;
                 }*/
+                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_LOCATED_ENGAGE");
                 if (!pursuit_created)
                 {
                     pursuit = Functions.CreatePursuit();
@@ -286,13 +299,13 @@ namespace ArrestWarrantCallout
                             //{
                             if (wep_chance > 10 && wep_chance < 75)
                             {
-                                WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                                WeaponAsset w_ass = new WeaponAsset(bronie.get_pistol());
                                 myPed.Inventory.GiveNewWeapon(w_ass, 25, true);
                                 myPed2.Inventory.GiveNewWeapon(w_ass, 25, true);
                             }
                             else if (wep_chance >= 75)
                             {
-                                WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                                WeaponAsset w_ass = new WeaponAsset(bronie.get_rifle());
                                 myPed.Inventory.GiveNewWeapon(w_ass, 100, true);
                                 myPed.Armor = 50;
                                 myPed2.Inventory.GiveNewWeapon(w_ass, 100, true);
@@ -334,7 +347,7 @@ namespace ArrestWarrantCallout
             }*/
             if (!player_interacting || !blip_attached)
             {
-                if (rand_num > 0 && rand_num < 50)
+                if (rand_num >= 0 && rand_num < 20)
                 {
                     if (myPed.Position.DistanceTo(airport_pos) < 50)
                     {
@@ -356,7 +369,7 @@ namespace ArrestWarrantCallout
                         }
                     }
                 }
-                if (rand_num >= 50 && rand_num < 101)
+                if (rand_num >= 20 && rand_num < 40)
                 {
                     if (myPed.Position.DistanceTo(seaport_pos) < 50)
                     {
@@ -365,6 +378,28 @@ namespace ArrestWarrantCallout
                             myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             myPed2.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                             
+                            myPed.Tasks.Wander();
+                            myPed2.Tasks.Wander();
+                            if (myBlipArea.Exists())
+                            {
+                                myBlipArea.Position = myPed.Position;
+                                from_pos = myPed.Position;
+
+                                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", from_pos);
+                            }
+
+                        }
+                    }
+                }
+                if (rand_num >= 40 && rand_num < 101)
+                {
+                    if (myPed.Position.DistanceTo(random_escape_pos) < 50)
+                    {
+                        if (myPed.IsInAnyVehicle(true) && !player_interacting)
+                        {
+                            myPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                            myPed2.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+
                             myPed.Tasks.Wander();
                             myPed2.Tasks.Wander();
                             if (myBlipArea.Exists())
@@ -388,7 +423,10 @@ namespace ArrestWarrantCallout
                     {
 
                         Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : To Control, Suspect is in custody.");
+                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO");
                         Game.DisplayNotification("Control : Acknowledged. ");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
                         got_arrested_notf = true;
                     }
 
@@ -399,7 +437,10 @@ namespace ArrestWarrantCallout
                     {
 
                         Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : To Control, Suspect is in custody.");
+                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO");
                         Game.DisplayNotification("Control : Acknowledged. ");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
                         got_arrested_notf = true;
                     }
 
@@ -416,7 +457,10 @@ namespace ArrestWarrantCallout
                 else if (timeout_is_on)
                 {
                     Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : We have lost track of suspect.");
+
                     Game.DisplayNotification("Control : Acknowledged. Proceed with patrol.");
+                    Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO");
+                    //Functions.PlayScannerAudio("ADAM_4_COPY");
                     myPed.Dismiss();
                     myPed2.Dismiss();
                     this.End();
@@ -462,7 +506,7 @@ namespace ArrestWarrantCallout
         }
         private Vector3 CreateWantedPedLoc(int rand)
         {
-            Vector3 s_point = new Vector3(1994.899f, 2651.14f, 46.34293f);
+            Vector3 s_point = new Vector3(1994.899f, 2651.14f, 46.34293f); // prison
             //Vector3 vect = new Vector3();
             //vect = PickPrisonLocation();
             //s_point = World.GetNextPositionOnStreet(vect.Around(30f));
@@ -490,77 +534,7 @@ namespace ArrestWarrantCallout
             }
             return ret;
         }
-        private String getVarPedModel()
-        {
-            Random ped_var = new Random();
-            int ped_var_mod = ped_var.Next(1, 100);
-            String ped_model = "a_m_y_mexthug_01";
-            if (ped_var_mod > 0 && ped_var_mod < 10)
-            {
-                ped_model = "a_m_y_mexthug_01";
-            }
-            else if (ped_var_mod >= 10 && ped_var_mod < 20)
-            {
-                ped_model = "a_f_y_hipster_01";
-            }
-            else if (ped_var_mod >= 20 && ped_var_mod < 30)
-            {
-                ped_model = "a_f_y_runner_01";
-            }
-            else if (ped_var_mod >= 30 && ped_var_mod < 40)
-            {
-                ped_model = "a_f_y_topless_01";
-            }
-            else if (ped_var_mod >= 40 && ped_var_mod < 50)
-            {
-                ped_model = "a_m_y_business_03";
-            }
-            else if (ped_var_mod >= 50 && ped_var_mod < 60)
-            {
-                ped_model = "a_m_y_cyclist_01";
-            }
-            else if (ped_var_mod >= 60 && ped_var_mod < 70)
-            {
-                ped_model = "a_m_y_gay_01";
-            }
-            else if (ped_var_mod >= 70 && ped_var_mod < 80)
-            {
-                ped_model = "a_m_y_hippy_01";
-            }
-            else if (ped_var_mod >= 80 && ped_var_mod < 101)
-            {
-                ped_model = "a_m_y_skater_01";
-            }
-            return ped_model;
-        }
-
-        private String getVarVehModel()
-        {
-            String veh_model = "DUKES2";
-            Random veh_var = new Random();
-            int veh_var_mod = veh_var.Next(1, 100);
-            if (veh_var_mod > 0 && veh_var_mod < 20)
-            {
-                veh_model = "DUKES2";
-            }
-            else if (veh_var_mod >= 20 && veh_var_mod < 40)
-            {
-                veh_model = "BLISTA";
-            }
-            else if (veh_var_mod >= 40 && veh_var_mod < 60)
-            {
-                veh_model = "BUFFALO";
-            }
-            else if (veh_var_mod >= 60 && veh_var_mod < 80)
-            {
-                veh_model = "BURRITO3";
-            }
-            else if (veh_var_mod >= 80 && veh_var_mod < 101)
-            {
-                veh_model = "DILETTANTE";
-            }
-            return veh_model;
-        }
+        
 
     }
 }

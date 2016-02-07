@@ -87,7 +87,7 @@ namespace ArrestWarrantCallout
             seaport_pos = new Vector3(Convert.ToSingle(1181.485), Convert.ToSingle(-3099.899), Convert.ToSingle(5.43373)); // set seaport pos
 
             //Create our ped in the world
-            myPed = new Ped(getVarPedModel(), SpawnPoint, 0f);
+            myPed = new Ped(CommonFunctions.getVarPedModel(), SpawnPoint, 0f);
             myPed.KeepTasks = true;
             myPed.MakePersistent();
             DateTime birthday = new DateTime(1971,01,23);
@@ -111,7 +111,7 @@ namespace ArrestWarrantCallout
             //Create the vehicle for our ped
             if (weh_chance > 50 && weh_chance < 101)
             {
-                myVehicle = new Vehicle(getVarVehModel(), SpawnPoint);
+                myVehicle = new Vehicle(CommonFunctions.getVarVehModel(), SpawnPoint);
                 if (!myVehicle.Exists()) return false;
             }
            
@@ -184,13 +184,15 @@ namespace ArrestWarrantCallout
             if (rand_num > 0 && rand_num < 10) // waiting at home
             {
                 Game.DisplayNotification("~b~ Control to 1-ADAM-12 ~w~ : We have information that suspect is unaware about Your arrest warrant.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION RESPOND_CODE_2", SpawnPoint);
+                //Functions.PlayScannerAudio("RESPOND_CODE_2");
                 myPed.Tasks.Wander();
             }
             else if (rand_num >= 10 && rand_num < 40) // fleeing to airport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is fleeing to airport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03", airport_pos);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION RESPOND_CODE_3", airport_pos);
+                //Functions.PlayScannerAudio("RESPOND_CODE_3");
                 if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(airport_pos, 30, VehicleDrivingFlags.FollowTraffic);
@@ -205,7 +207,8 @@ namespace ArrestWarrantCallout
             else if (rand_num >= 40  && rand_num < 80) // fleeing to seaport
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is fleeing to seaport.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION UNITS_RESPOND_CODE_03",seaport_pos);
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION RESPOND_CODE_3", seaport_pos);
+                //Functions.PlayScannerAudio("RESPOND_CODE_3");
                 if (weh_chance > 50)
                 {
                     myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
@@ -221,23 +224,28 @@ namespace ArrestWarrantCallout
             else // hiding in mouintains
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspect is ~y~ hiding in marked area.");
-                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION UNITS_RESPOND_CODE_02", SpawnPoint);
-                
+                Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION RESPOND_CODE_2", SpawnPoint);
+                //Functions.PlayScannerAudio("RESPOND_CODE_2");
                 myPed.Tasks.Wander();
           
             }
             if (wep_chance > 50 && wep_chance < 95) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control : ~w~ Suspect is in posession of ~y~ small firearms ~w~ . Be advised.");
+                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_IS OUTRO OFFICER_INTRO SMALL_ARMS");
+                //Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 95)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspect is ~r~ heavily armed ~w~ and dangerous. Be advised.");
+                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_IS OUTRO OFFICER_INTRO HEAVILY_ARMED_DANGEROUS");
+                //Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
             {
                 Game.DisplayNotification("~b~ Control ~w~ : We have ~b~ no intel ~w~ about possible firearms posession by suspect.");
             }
+            Functions.PlayScannerAudio("OFFICER_INTRO ADAM_4_COPY OUTRO");
            
             return base.OnCalloutAccepted();
         }
@@ -289,6 +297,7 @@ namespace ArrestWarrantCallout
                 myBlip.RouteColor = System.Drawing.Color.Red;
                 myPed.KeepTasks = false; // so they can get out of car when player closes or do anything
                 blip_attached = true;
+                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_LOCATED_ENGAGE");
             }
             if (!pursuit_created && !fight_started && myPed.Position.DistanceTo(Game.LocalPlayer.Character.Position) < 50)
             {
@@ -300,12 +309,12 @@ namespace ArrestWarrantCallout
                             //{
                                 if (wep_chance > 40 && wep_chance < 95)
                                 {
-                                    WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                                    WeaponAsset w_ass = new WeaponAsset(bronie.get_pistol());
                                     myPed.Inventory.GiveNewWeapon(w_ass, 25, true);
                                 }
                                 else if (wep_chance >= 95)
                                 {
-                                    WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                                    WeaponAsset w_ass = new WeaponAsset(bronie.get_rifle());
                                     myPed.Inventory.GiveNewWeapon(w_ass, 100, true);
                                     myPed.Armor = 50;
                                 }
@@ -322,12 +331,12 @@ namespace ArrestWarrantCallout
                     {
                         if (wep_chance > 40 && wep_chance < 95)
                         {
-                            WeaponAsset w_ass = new WeaponAsset("WEAPON_PISTOL");
+                            WeaponAsset w_ass = new WeaponAsset(bronie.get_pistol());
                             myPed.Inventory.GiveNewWeapon(w_ass, 25, true);
                         }
                         else if (wep_chance >= 95)
                         {
-                            WeaponAsset w_ass = new WeaponAsset("WEAPON_ASSAULTRIFLE");
+                            WeaponAsset w_ass = new WeaponAsset(bronie.get_rifle());
                             myPed.Inventory.GiveNewWeapon(w_ass, 100, true);
                             myPed.Armor = 50;
                         }
@@ -422,8 +431,11 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                            Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
-                            got_arrested_notf = true;
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
+                        Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
+                        got_arrested_notf = true;
                         //}
                     }
 
@@ -444,7 +456,10 @@ namespace ArrestWarrantCallout
                         else
                         {*/
                         Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : To Control, Suspect is in custody.");
-                            Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
+                        Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
+                        //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
+                        //Functions.PlayScannerAudio("ADAM_4_COPY");
                             got_arrested_notf = true;
                         //}
                     }
@@ -462,6 +477,7 @@ namespace ArrestWarrantCallout
                 else if (timeout_is_on)
                 {
                     Game.DisplayNotification("~b~ " + ArrestWarrantClass.option_player_name + " ~w~ : We have lost track of suspect.");
+                    Functions.PlayScannerAudio("10_15_SUSPECT_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
                     Game.DisplayNotification("~b~ Control ~w~ : Acknowledged. Proceed with patrol.");
                     myPed.Dismiss();
                     this.End();
@@ -520,7 +536,7 @@ namespace ArrestWarrantCallout
         {
             Vector3 ret = new Vector3(0, 0, 0);
             Random random_m = new Random();
-            int rand_moun = random_m.Next(1, 5);
+            int rand_moun = random_m.Next(0, 6);
             switch (rand_moun)
             {
                 case 1: ret.X = -1019.682f;
@@ -550,77 +566,9 @@ namespace ArrestWarrantCallout
             }
             return ret;
         }
-        private String getVarPedModel ()
-        {
-            Random ped_var = new Random();
-            int ped_var_mod = ped_var.Next(1, 100);
-            String ped_model = "a_m_y_mexthug_01";
-            if (ped_var_mod > 0 && ped_var_mod < 10)
-            {
-                ped_model = "a_m_y_mexthug_01";
-            }
-            else if (ped_var_mod >= 10 && ped_var_mod < 20)
-            {
-                ped_model = "a_f_y_hipster_01";
-            }
-            else if (ped_var_mod >= 20 && ped_var_mod < 30)
-            {
-                ped_model = "a_f_y_runner_01";
-            }
-            else if (ped_var_mod >= 30 && ped_var_mod < 40)
-            {
-                ped_model = "a_f_y_topless_01";
-            }
-            else if (ped_var_mod >= 40 && ped_var_mod < 50)
-            {
-                ped_model = "a_m_y_business_03";
-            }
-            else if (ped_var_mod >= 50 && ped_var_mod < 60)
-            {
-                ped_model = "a_m_y_cyclist_01";
-            }
-            else if (ped_var_mod >= 60 && ped_var_mod < 70)
-            {
-                ped_model = "a_m_y_gay_01";
-            }
-            else if (ped_var_mod >= 70 && ped_var_mod < 80)
-            {
-                ped_model = "a_m_y_hippy_01";
-            }
-            else if (ped_var_mod >= 80 && ped_var_mod < 101)
-            {
-                ped_model = "a_m_y_skater_01";
-            }
-            return ped_model;
-        }
+        
 
-        private String getVarVehModel()
-        {
-            String veh_model = "DUKES2";
-            Random veh_var = new Random();
-            int veh_var_mod = veh_var.Next(1, 100);
-            if (veh_var_mod > 0 && veh_var_mod < 20)
-            {
-                veh_model = "DUKES2";
-            }
-            else if (veh_var_mod >= 20 && veh_var_mod < 40)
-            {
-                veh_model = "BLISTA";
-            }
-            else if (veh_var_mod >= 40 && veh_var_mod < 60)
-            {
-                veh_model = "BUFFALO";
-            }
-            else if (veh_var_mod >= 60 && veh_var_mod < 80)
-            {
-                veh_model = "BURRITO3";
-            }
-            else if (veh_var_mod >= 80 && veh_var_mod < 101)
-            {
-                veh_model = "DILETTANTE";
-            }
-            return veh_model;
-        }
+        
 
     }
 }
