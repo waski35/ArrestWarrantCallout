@@ -211,7 +211,7 @@ namespace ArrestWarrantCallout
         {
             return false;
         }
-        FileVersionInfo myFileVersionInfo2 = FileVersionInfo.GetVersionInfo("\\Plugins\\LSPD First Response.dll");
+        FileVersionInfo myFileVersionInfo2 = FileVersionInfo.GetVersionInfo("Plugins\\LSPD First Response.dll");
         if (myFileVersionInfo2.FileMajorPart >= 0)
         {
             if (myFileVersionInfo2.FileMinorPart >= 3)
