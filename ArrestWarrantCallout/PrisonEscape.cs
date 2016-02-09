@@ -186,20 +186,20 @@ namespace ArrestWarrantCallout
             else // fleeing to random position
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to unknown location.");
-                Functions.PlayScannerAudio("OFFICER_INTRO RESPOND_CODE_2");
+                Functions.PlayScannerAudio("RESPOND_CODE_2");
                 myPed.Tasks.DriveToPosition(random_escape_pos, 30, VehicleDrivingFlags.FollowTraffic);
             }
             
             if (wep_chance > 20 && wep_chance < 75) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are in posession of small firearms. Be advised.");
-                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_IS OUTRO OFFICER_INTRO SMALL_ARMS");
+                Functions.PlayScannerAudio("SUSPECT_IS SMALL_ARMS");
                 //Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 75)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are heavily armed and dangerous. Be advised.");
-                Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_IS OUTRO OFFICER_INTRO HEAVILY_ARMED_DANGEROUS");
+                Functions.PlayScannerAudio("SUSPECT_IS HEAVILY_ARMED_DANGEROUS");
                 //Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
@@ -423,7 +423,7 @@ namespace ArrestWarrantCallout
                     {
 
                         Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO");
+                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
                         Game.DisplayNotification("Control : Acknowledged. ");
                         //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                         //Functions.PlayScannerAudio("ADAM_4_COPY");
@@ -437,7 +437,7 @@ namespace ArrestWarrantCallout
                     {
 
                         Game.DisplayNotification(ArrestWarrantClass.option_player_name + " : To Control, Suspect is in custody.");
-                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO");
+                        Functions.PlayScannerAudio("ALL_CRIMS_IN_CUSTODY OUTRO OFFICER_INTRO ADAM_4_COPY OUTRO OFFICER_INTRO CODE_4_ADAM_NO_ADDITIONAL OUTRO");
                         Game.DisplayNotification("Control : Acknowledged. ");
                         //Functions.PlayScannerAudio("CODE_4_ADAM_NO_ADDITIONAL");
                         //Functions.PlayScannerAudio("ADAM_4_COPY");
