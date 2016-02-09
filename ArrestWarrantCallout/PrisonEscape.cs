@@ -193,13 +193,13 @@ namespace ArrestWarrantCallout
             if (wep_chance > 20 && wep_chance < 75) // chance to get intel about weapons is slightly lower than real possibility
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are in posession of small firearms. Be advised.");
-                Functions.PlayScannerAudio("SUSPECT_IS SMALL_ARMS");
+                Functions.PlayScannerAudio("SUSPECT_IS_ARM SMALL_ARMS");
                 //Functions.PlayScannerAudio("SMALL_ARMS");
             }
             else if (wep_chance >= 75)
             {
                 Game.DisplayNotification("~b~ Control ~w~ : Suspects are heavily armed and dangerous. Be advised.");
-                Functions.PlayScannerAudio("SUSPECT_IS HEAVILY_ARMED_DANGEROUS");
+                Functions.PlayScannerAudio("SUSPECT_IS_ARM HEAVILY_ARMED_DANGEROUS");
                 //Functions.PlayScannerAudio("HEAVILY_ARMED_DANGEROUS");
             }
             else // sometimes, in 10% situations suspect is armed, but player shouldnt know about it - SURPRISE.
