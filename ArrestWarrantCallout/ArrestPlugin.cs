@@ -182,8 +182,8 @@ namespace ArrestWarrantCallout
             {
                 Game.LogTrivial("Found RPH version 0.33 or 0.34.");
                 Game.LogTrivial("exiting.");
-                Game.DisplayNotification("AWC : Incompatible RPH version detected, exiting!");
-                ret = false;
+                Game.DisplayNotification("AWC : 0.34 or 0.33 RPH version detected, starting!");
+                ret = true;
             }
             else if (myFileVersionInfo.FileMinorPart < 33)
             {
