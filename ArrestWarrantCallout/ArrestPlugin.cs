@@ -181,8 +181,8 @@ namespace ArrestWarrantCallout
             else if (myFileVersionInfo.FileMinorPart >= 33 && myFileVersionInfo.FileMinorPart < 35)
             {
                 Game.LogTrivial("Found RPH version 0.33 or 0.34.");
-                Game.LogTrivial("exiting.");
-                Game.DisplayNotification("AWC : 0.34 or 0.33 RPH version detected, starting!");
+                Game.LogTrivial("starting.");
+                //Game.DisplayNotification("AWC : 0.34 or 0.33 RPH version detected, starting!");
                 ret = true;
             }
             else if (myFileVersionInfo.FileMinorPart < 33)
