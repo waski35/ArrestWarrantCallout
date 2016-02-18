@@ -170,7 +170,7 @@ namespace ArrestWarrantCallout
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to airport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION RESPOND_CODE_3", airport_pos);
                 //Functions.PlayScannerAudio("RESPOND_CODE_3");
-                myPed.Tasks.DriveToPosition(airport_pos, 30, VehicleDrivingFlags.FollowTraffic);
+                myPed.Tasks.DriveToPosition(airport_pos, 50, VehicleDrivingFlags.Emergency);
 
                 
             }
@@ -179,7 +179,7 @@ namespace ArrestWarrantCallout
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to seaport.");
                 Functions.PlayScannerAudioUsingPosition("SUSPECT_HEADING IN_OR_ON_POSITION RESPOND_CODE_3", seaport_pos);
                 //Functions.PlayScannerAudio("RESPOND_CODE_3");
-                myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
+                myPed.Tasks.DriveToPosition(seaport_pos, 50, VehicleDrivingFlags.Emergency);
                 
 
             }
@@ -187,7 +187,7 @@ namespace ArrestWarrantCallout
             {
                 Game.DisplayNotification("~b~ Control to " + ArrestWarrantClass.option_player_name + " ~w~ : We have information that suspects are fleeing to unknown location.");
                 Functions.PlayScannerAudio("RESPOND_CODE_2");
-                myPed.Tasks.DriveToPosition(random_escape_pos, 30, VehicleDrivingFlags.FollowTraffic);
+                myPed.Tasks.DriveToPosition(random_escape_pos, 50, VehicleDrivingFlags.Emergency);
             }
             
             if (wep_chance > 20 && wep_chance < 75) // chance to get intel about weapons is slightly lower than real possibility
