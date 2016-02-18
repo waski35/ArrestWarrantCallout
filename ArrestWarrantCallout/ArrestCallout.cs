@@ -294,7 +294,8 @@ namespace ArrestWarrantCallout
                 if (myBlipArea.Exists()) myBlipArea.Delete();
                 myBlip = myPed.AttachBlip();
                 myBlip.Color = System.Drawing.Color.Red;
-                myBlip.RouteColor = System.Drawing.Color.Red;
+                myBlip.RouteColor = System.Drawing.Color.Yellow;
+                myBlip.Scale = 0.75f;
                 myPed.KeepTasks = false; // so they can get out of car when player closes or do anything
                 blip_attached = true;
                 Functions.PlayScannerAudio("OFFICER_INTRO SUSPECT_LOCATED_ENGAGE");
