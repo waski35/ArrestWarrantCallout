@@ -195,7 +195,7 @@ namespace ArrestWarrantCallout
                 //Functions.PlayScannerAudio("RESPOND_CODE_3");
                 if (weh_chance > 50)
                 {
-                    myPed.Tasks.DriveToPosition(airport_pos, 30, VehicleDrivingFlags.FollowTraffic);
+                    myPed.Tasks.DriveToPosition(airport_pos, 50, VehicleDrivingFlags.Emergency);
                    
                 }
                 else
@@ -211,7 +211,7 @@ namespace ArrestWarrantCallout
                 //Functions.PlayScannerAudio("RESPOND_CODE_3");
                 if (weh_chance > 50)
                 {
-                    myPed.Tasks.DriveToPosition(seaport_pos, 30, VehicleDrivingFlags.FollowTraffic);
+                    myPed.Tasks.DriveToPosition(seaport_pos, 50, VehicleDrivingFlags.Emergency);
                    
                 }
                 else
