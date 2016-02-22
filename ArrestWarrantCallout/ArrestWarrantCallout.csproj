@@ -20,7 +20,7 @@
     <AssemblyVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.5.18.1737</AssemblyVersion>
+    <AssemblyVersion>0.5.22.1518</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,8 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LSPD First Response">
-      <HintPath>G:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\core\lspdfr02b\Plugins\LSPD First Response.dll</HintPath>
+    <Reference Include="LSPD First Response, Version=0.3.33.5355, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>I:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\core\LSPDFR031ManualInstall\plugins\LSPD First Response.dll</HintPath>
     </Reference>
     <Reference Include="RagePluginHookSDK, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
