@@ -311,8 +311,8 @@ namespace ArrestWarrantCallout
                     }
                     if (dialog_phase == 3)
                     {
-                        Game.DisplaySubtitle("YOU : You have the right to remain silent, anything you say ...", 3000);
-                        Game.DisplaySubtitle("... can and will be used against you in a court of law", 3000);
+                        //Game.DisplaySubtitle("YOU : You have the right to remain silent, anything you say ...", 3000);
+                        //Game.DisplaySubtitle("... can and will be used against you in a court of law", 3000);
                         dialog_phase = 5;
                     }
                     if (dialog_phase == 4)
