@@ -20,7 +20,7 @@
     <AssemblyVersionSettings>IncrementOnDemand.DayOfYearStamp.DayStamp.TimeStamp</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>IncrementOnDemand.DayOfYearStamp.DayStamp.TimeStamp</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>IncrementOnDemand.DayOfYearStamp.DayStamp.TimeStamp</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.164.12.0910</AssemblyVersion>
+    <AssemblyVersion>0.164.12.0920</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

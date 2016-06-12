@@ -173,7 +173,7 @@ namespace ArrestWarrantCallout
         FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo("RagePluginHook.exe");
         if (myFileVersionInfo.FileMajorPart >= 0)
         {
-            if (myFileVersionInfo.FileMinorPart >= 35 && myFileVersionInfo.FileMinorPart < 37)
+            if (myFileVersionInfo.FileMinorPart >= 35 && myFileVersionInfo.FileMinorPart < 40)
             {
                 Game.LogTrivial("Found RPH version 0.35 or 0.36.");
                 ret = true;
@@ -192,7 +192,7 @@ namespace ArrestWarrantCallout
                 Game.DisplayNotification("AWC : Incompatible RPH version detected, exiting!");
                 ret = false;
             }
-            else if (myFileVersionInfo.FileMinorPart >= 37)
+            else if (myFileVersionInfo.FileMinorPart >= 41)
             {
                 Game.LogTrivial("Found non-tested version of RPH.");
                 Game.LogTrivial("allowing to run.");
