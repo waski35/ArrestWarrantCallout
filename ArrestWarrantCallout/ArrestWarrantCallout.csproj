@@ -17,10 +17,10 @@
     <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyFileVersionSettings>
-    <AssemblyInfoVersionSettings>IncrementOnDemand.IncrementOnDemand.DayStamp.TimeStamp</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.6.8.1833</AssemblyVersion>
+    <AssemblyVersionSettings>IncrementOnDemand.DayOfYearStamp.DayStamp.TimeStamp</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>IncrementOnDemand.DayStamp.DayStamp.TimeStamp</AssemblyFileVersionSettings>
+    <AssemblyInfoVersionSettings>IncrementOnDemand.DayOfYearStamp.DayStamp.TimeStamp</AssemblyInfoVersionSettings>
+    <AssemblyVersion>0.164.12.0908</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,13 +41,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LSPD First Response, Version=0.3.38.5436, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="LSPD First Response">
       <HintPath>I:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\core\LSPDFR031ManualInstall\plugins\LSPD First Response.dll</HintPath>
     </Reference>
     <Reference Include="RagePluginHookSDK, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>I:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\ragehook\RAGEPluginHook_0_38_886_6940_ALPHA\SDK\RagePluginHookSDK.dll</HintPath>
+      <HintPath>I:\DOWNLOADS - GAMES\DODATKI\gta v\LSPDFR\ragehook\RAGEPluginHook_0_39_946_8098_ALPHA\SDK\RagePluginHookSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
