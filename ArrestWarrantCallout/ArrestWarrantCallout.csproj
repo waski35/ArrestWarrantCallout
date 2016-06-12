@@ -18,9 +18,9 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
     <AssemblyVersionSettings>IncrementOnDemand.DayOfYearStamp.DayStamp.TimeStamp</AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>IncrementOnDemand.DayStamp.DayStamp.TimeStamp</AssemblyFileVersionSettings>
+    <AssemblyFileVersionSettings>IncrementOnDemand.DayOfYearStamp.DayStamp.TimeStamp</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>IncrementOnDemand.DayOfYearStamp.DayStamp.TimeStamp</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.164.12.0908</AssemblyVersion>
+    <AssemblyVersion>0.164.12.0910</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
