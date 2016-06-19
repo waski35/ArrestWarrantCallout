@@ -196,7 +196,7 @@ namespace ArrestWarrantCallout
             {
                 Game.LogTrivial("Found non-tested version of RPH.");
                 Game.LogTrivial("allowing to run.");
-                Game.DisplayNotification("AWC : Non-tested version of RPH found. Allowing to run.");
+                //Game.DisplayNotification("AWC : Non-tested version of RPH found. Allowing to run.");
                 ret = true;
             }
             else
