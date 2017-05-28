@@ -168,6 +168,7 @@ namespace ArrestWarrantCallout
     }
     private static bool CheckVersionsofAssemblies()
     {
+        /*
         bool ret = false;
         // Get the file version for the notepad.
         FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo("RagePluginHook.exe");
@@ -235,6 +236,8 @@ namespace ArrestWarrantCallout
             }
         }
         return ret;
+         */
+        return true;
     }
 
 
